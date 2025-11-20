@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio Digital - Sabor do Caldo</title>
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a56d4;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --card-color: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,9 +21,10 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #764ba2 100%);
+            color: var(--text-color);
             line-height: 1.6;
+            transition: all 0.3s ease;
         }
 
         .container {
@@ -24,19 +33,21 @@
             padding: 20px;
         }
 
+        /* Header */
         header {
             text-align: center;
-            background: white;
+            background: var(--card-color);
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .logo {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #4361ee;
+            color: var(--primary-color);
             margin-bottom: 10px;
         }
 
@@ -47,16 +58,78 @@
         }
 
         .hours {
-            background: #f8f9fa;
+            background: var(--background-color);
             padding: 10px;
             border-radius: 8px;
             display: inline-block;
             font-weight: bold;
-            color: #4361ee;
+            color: var(--primary-color);
         }
 
-        .menu-category {
+        /* Menu Button */
+        .menu-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            padding: 5px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
             background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 10px;
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 15px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--background-color);
+        }
+
+        /* Closed Message */
+        .closed-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .closed-message h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Menu Categories */
+        .menu-category {
+            background: var(--card-color);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
@@ -64,19 +137,28 @@
         }
 
         .category-title {
-            color: #4361ee;
-            border-bottom: 3px solid #4361ee;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
             padding-bottom: 10px;
             margin-bottom: 20px;
             font-size: 1.5rem;
         }
 
+        /* Menu Items with Images */
         .menu-item {
             display: flex;
-            justify-content: space-between;
-            align-items: start;
+            align-items: center;
             padding: 15px 0;
             border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
         }
 
         .item-info {
@@ -98,12 +180,12 @@
 
         .item-price {
             font-weight: bold;
-            color: #4361ee;
+            color: var(--primary-color);
             font-size: 1.2rem;
         }
 
         .add-to-cart {
-            background: #4361ee;
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 8px 15px;
@@ -113,14 +195,15 @@
         }
 
         .add-to-cart:hover {
-            background: #3a56d4;
+            background: var(--secondary-color);
         }
 
+        /* Cart Button */
         .cart-button {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: #4361ee;
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 15px 25px;
@@ -138,7 +221,7 @@
             margin-top: 50px;
         }
 
-        /* Modal do Carrinho */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -174,7 +257,73 @@
             text-align: right;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 2px solid #4361ee;
+            border-top: 2px solid var(--primary-color);
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .admin-content {
+            background: white;
+            margin: 2% auto;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .color-option.active {
+            border-color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Customer Registration */
+        .registration-form {
+            background: var(--card-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
@@ -187,8 +336,11 @@
                 align-items: start;
             }
             
+            .item-image {
+                align-self: center;
+            }
+            
             .add-to-cart {
-                margin-top: 10px;
                 align-self: flex-end;
             }
         }
@@ -196,40 +348,57 @@
 </head>
 <body>
     <div class="container">
+        <!-- Menu Button -->
+        <button class="menu-button" onclick="toggleMenu()">⋯</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <button class="dropdown-item" onclick="showAdminLogin()">🔧 Administrativo</button>
+            <button class="dropdown-item" onclick="showRegistration()">📝 Cadastrar Cliente</button>
+        </div>
+
         <header>
             <div class="logo">🍲 Sabor do Caldo</div>
             <div class="subtitle">Cardápio Digital · Passos-MG · Delivery</div>
             <div class="hours">Quinta a Domingo: 19:00 - 23:00</div>
         </header>
 
+        <!-- Closed Message -->
+        <div class="closed-message" id="closedMessage">
+            <h2>⏰ Estamos Fechados no Momento</h2>
+            <p>Nosso horário de atendimento é de <strong>Quinta a Domingo das 19:00 às 23:00</strong>.</p>
+            <p>Volte em nosso horário de funcionamento para fazer seu pedido!</p>
+        </div>
+
         <!-- Caldos Tradicionais -->
         <section class="menu-category">
             <h2 class="category-title">🥣 Caldos Tradicionais</h2>
             
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=C.F" alt="Caldo de Feijão" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Caldo de Feijão</div>
                     <div class="item-description">Caldinho de feijão bem temperado com torresmo crocante e torradinha</div>
+                    <div class="item-price">R$ 12,00</div>
                 </div>
-                <div class="item-price">R$ 12,00</div>
                 <button class="add-to-cart" onclick="addToCart('Caldo de Feijão', 12.00)">+</button>
             </div>
 
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=C.M" alt="Caldo de Mandioquinha" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Caldo de Mandioquinha</div>
                     <div class="item-description">Creme de mandioquinha com croutons e salsinha</div>
+                    <div class="item-price">R$ 14,00</div>
                 </div>
-                <div class="item-price">R$ 14,00</div>
                 <button class="add-to-cart" onclick="addToCart('Caldo de Mandioquinha', 14.00)">+</button>
             </div>
 
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=C.G" alt="Canja de Galinha" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Canja de Galinha</div>
                     <div class="item-description">Tradicional canja com frango desfiado e legumes</div>
+                    <div class="item-price">R$ 13,00</div>
                 </div>
-                <div class="item-price">R$ 13,00</div>
                 <button class="add-to-cart" onclick="addToCart('Canja de Galinha', 13.00)">+</button>
             </div>
         </section>
@@ -239,20 +408,22 @@
             <h2 class="category-title">🌟 Caldos Especiais</h2>
             
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=C.C" alt="Caldo de Camarão" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Caldo de Camarão</div>
                     <div class="item-description">Caldinho cremoso com camarões frescos e leite de coco</div>
+                    <div class="item-price">R$ 18,00</div>
                 </div>
-                <div class="item-price">R$ 18,00</div>
                 <button class="add-to-cart" onclick="addToCart('Caldo de Camarão', 18.00)">+</button>
             </div>
 
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=C.C" alt="Caldo de Costela" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Caldo de Costela</div>
                     <div class="item-description">Caldinho robusto com costela bovina e legumes</div>
+                    <div class="item-price">R$ 16,00</div>
                 </div>
-                <div class="item-price">R$ 16,00</div>
                 <button class="add-to-cart" onclick="addToCart('Caldo de Costela', 16.00)">+</button>
             </div>
         </section>
@@ -262,21 +433,23 @@
             <h2 class="category-title">🍞 Acompanhamentos</h2>
             
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=P.A" alt="Pão de Alho" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Pão de Alho</div>
                     <div class="item-description">2 unidades</div>
+                    <div class="item-price">R$ 8,00</div>
                 </div>
-                <div class="item-price">R$ 8,00</div>
                 <button class="add-to-cart" onclick="addToCart('Pão de Alho', 8.00)">+</button>
             </div>
 
             <div class="menu-item">
+                <img src="https://via.placeholder.com/80x80/4361ee/ffffff?text=T" alt="Torradinhas" class="item-image">
                 <div class="item-info">
                     <div class="item-title">Torradinhas</div>
                     <div class="item-description">Porção com 6 unidades</div>
+                    <div class="item-price">R$ 6,00</div>
                 </div>
-                <div class="item-price">R$ 6,00</div>
-                <button class="addToCart" onclick="addToCart('Torradinhas', 6.00)">+</button>
+                <button class="add-to-cart" onclick="addToCart('Torradinhas', 6.00)">+</button>
             </div>
         </section>
     </div>
@@ -289,7 +462,7 @@
     <!-- Modal do Carrinho -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
-            <h2 style="color: #4361ee; margin-bottom: 20px;">Seu Pedido</h2>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Seu Pedido</h2>
             <div id="cart-items"></div>
             <div class="cart-total">
                 Total: R$ <span id="cart-total">0,00</span>
@@ -298,7 +471,7 @@
                 <button onclick="closeCart()" style="flex: 1; padding: 12px; background: #666; color: white; border: none; border-radius: 5px;">
                     Continuar Comprando
                 </button>
-                <button onclick="checkout()" style="flex: 1; padding: 12px; background: #4361ee; color: white; border: none; border-radius: 5px;">
+                <button onclick="checkout()" style="flex: 1; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 5px;">
                     Finalizar Pedido
                 </button>
             </div>
@@ -308,7 +481,7 @@
     <!-- Modal de Checkout -->
     <div id="checkoutModal" class="modal">
         <div class="modal-content">
-            <h2 style="color: #4361ee; margin-bottom: 20px;">Finalizar Pedido</h2>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Finalizar Pedido</h2>
             <div style="margin-bottom: 20px;">
                 <h3>Itens do Pedido:</h3>
                 <div id="checkout-items"></div>
@@ -316,36 +489,101 @@
                     Total: R$ <span id="checkout-total">0,00</span>
                 </div>
             </div>
-            <button onclick="closeCheckout()" style="width: 100%; padding: 12px; background: #4361ee; color: white; border: none; border-radius: 5px;">
+            <button onclick="closeCheckout()" style="width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 5px;">
                 Voltar ao Carrinho
             </button>
         </div>
     </div>
 
-    <!-- ===== SISTEMA ADMINISTRATIVO ===== -->
-    <div id="admin-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999;">
-        <div style="background: white; width: 90%; max-width: 400px; margin: 100px auto; padding: 30px; border-radius: 15px; text-align: center;">
-            <h3 style="margin-bottom: 20px;">🔐 Acesso Administrativo</h3>
-            <input type="password" id="admin-password" placeholder="Digite a senha" 
-                   style="width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 5px;">
-            <button onclick="checkAdminPassword()" 
-                    style="width: 100%; padding: 12px; background: #4361ee; color: white; border: none; border-radius: 5px;">
-                Acessar
-            </button>
-            <button onclick="closeAdminLogin()" 
-                    style="width: 100%; padding: 12px; margin-top: 10px; background: #666; color: white; border: none; border-radius: 5px;">
-                Cancelar
-            </button>
+    <!-- Modal de Cadastro do Cliente -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">📝 Cadastro do Cliente</h2>
+            <div class="registration-form">
+                <div class="form-group">
+                    <label for="customerName">Nome Completo:</label>
+                    <input type="text" id="customerName" placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Telefone:</label>
+                    <input type="tel" id="customerPhone" placeholder="(11) 99999-9999">
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress">Endereço:</label>
+                    <textarea id="customerAddress" placeholder="Digite seu endereço completo" rows="3"></textarea>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="closeRegistration()" style="flex: 1; padding: 12px; background: #666; color: white; border: none; border-radius: 5px;">
+                        Cancelar
+                    </button>
+                    <button onclick="saveCustomer()" style="flex: 1; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 5px;">
+                        Salvar Cadastro
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Botão Admin -->
-    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9998;">
-        <button onclick="showAdminLogin()" 
-                style="background: #4361ee; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);"
-                title="Acesso Administrativo">
-            ⚙️
-        </button>
+    <!-- Modal de Login Admin -->
+    <div id="adminLogin" class="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">🔐 Acesso Administrativo</h2>
+            <div class="form-group">
+                <label for="adminPassword">Senha:</label>
+                <input type="password" id="adminPassword" placeholder="Digite a senha">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeAdminLogin()" style="flex: 1; padding: 12px; background: #666; color: white; border: none; border-radius: 5px;">
+                    Cancelar
+                </button>
+                <button onclick="checkAdminPassword()" style="flex: 1; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 5px;">
+                    Acessar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel Administrativo -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-content">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">🔧 Painel Administrativo</h2>
+            
+            <div class="form-group">
+                <h3>🎨 Personalizar Cores</h3>
+                <div class="color-picker">
+                    <div class="color-option active" style="background: #4361ee;" onclick="changeColor('#4361ee', '#3a56d4')"></div>
+                    <div class="color-option" style="background: #e74c3c;" onclick="changeColor('#e74c3c', '#c0392b')"></div>
+                    <div class="color-option" style="background: #27ae60;" onclick="changeColor('#27ae60', '#219a52')"></div>
+                    <div class="color-option" style="background: #9b59b6;" onclick="changeColor('#9b59b6', '#8e44ad')"></div>
+                    <div class="color-option" style="background: #e67e22;" onclick="changeColor('#e67e22', '#d35400')"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>✏️ Editar Produtos</h3>
+                <button onclick="addNewProduct()" style="padding: 10px 20px; background: var(--primary-color); color: white; border: none; border-radius: 5px; margin-bottom: 15px;">
+                    + Adicionar Novo Produto
+                </button>
+                <div id="products-list">
+                    <!-- Produtos serão listados aqui -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>⚙️ Configurações Gerais</h3>
+                <label>Horário de Funcionamento:</label>
+                <input type="text" id="businessHours" value="Quinta a Domingo: 19:00 - 23:00" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 30px;">
+                <button onclick="closeAdminPanel()" style="flex: 1; padding: 12px; background: #666; color: white; border: none; border-radius: 5px;">
+                    Fechar
+                </button>
+                <button onclick="saveAdminSettings()" style="flex: 1; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 5px;">
+                    Salvar Alterações
+                </button>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -356,13 +594,18 @@
     </footer>
 
     <script>
-        // ===== SISTEMA DO CARRINHO =====
+        // ===== VARIÁVEIS GLOBAIS =====
         let cart = [];
-        const cartModal = document.getElementById('cartModal');
-        const checkoutModal = document.getElementById('checkoutModal');
         const deliveryFee = 6.00;
+        const ADMIN_PASSWORD = "Dsrr230885";
 
+        // ===== SISTEMA DO CARRINHO =====
         function addToCart(name, price) {
+            if (!isOpen()) {
+                alert('Estamos fechados no momento. Horário de atendimento: Quinta a Domingo das 19:00 às 23:00');
+                return;
+            }
+
             const existingItem = cart.find(item => item.name === name);
             
             if (existingItem) {
@@ -425,11 +668,11 @@
         }
 
         function openCart() {
-            cartModal.style.display = 'block';
+            document.getElementById('cartModal').style.display = 'block';
         }
 
         function closeCart() {
-            cartModal.style.display = 'none';
+            document.getElementById('cartModal').style.display = 'none';
         }
 
         function checkout() {
@@ -462,65 +705,190 @@
             total += deliveryFee;
             checkoutTotal.textContent = total.toFixed(2);
             
-            cartModal.style.display = 'none';
-            checkoutModal.style.display = 'block';
+            document.getElementById('cartModal').style.display = 'none';
+            document.getElementById('checkoutModal').style.display = 'block';
         }
 
         function closeCheckout() {
-            checkoutModal.style.display = 'none';
-            cartModal.style.display = 'block';
+            document.getElementById('checkoutModal').style.display = 'none';
+            document.getElementById('cartModal').style.display = 'block';
         }
 
-        // Fechar modais clicando fora
-        document.addEventListener('click', (e) => {
-            if (e.target === cartModal) {
-                closeCart();
+        // ===== SISTEMA DE HORÁRIO =====
+        function isOpen() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+            const hour = now.getHours();
+            
+            // Quinta (4) a Domingo (0)
+            const isOpenDay = day === 0 || day === 4 || day === 5 || day === 6;
+            const isOpenHour = hour >= 19 && hour < 23;
+            
+            return isOpenDay && isOpenHour;
+        }
+
+        function checkBusinessHours() {
+            const closedMessage = document.getElementById('closedMessage');
+            if (!isOpen()) {
+                closedMessage.style.display = 'block';
+            } else {
+                closedMessage.style.display = 'none';
             }
-            if (e.target === checkoutModal) {
-                closeCheckout();
-            }
-            if (e.target === document.getElementById('admin-login')) {
-                closeAdminLogin();
+        }
+
+        // ===== SISTEMA DO MENU =====
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('show');
+        }
+
+        // Fechar menu quando clicar fora
+        document.addEventListener('click', function(e) {
+            if (!e.target.matches('.menu-button')) {
+                const menu = document.getElementById('dropdownMenu');
+                if (menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                }
             }
         });
+
+        // ===== SISTEMA DE CADASTRO =====
+        function showRegistration() {
+            document.getElementById('registrationModal').style.display = 'block';
+            toggleMenu();
+        }
+
+        function closeRegistration() {
+            document.getElementById('registrationModal').style.display = 'none';
+        }
+
+        function saveCustomer() {
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            
+            if (!name || !phone || !address) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+            
+            // Aqui você salvaria no banco de dados
+            alert('Cadastro realizado com sucesso!');
+            closeRegistration();
+            
+            // Limpar campos
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerPhone').value = '';
+            document.getElementById('customerAddress').value = '';
+        }
 
         // ===== SISTEMA ADMINISTRATIVO =====
         function showAdminLogin() {
-            document.getElementById('admin-login').style.display = 'block';
-            document.getElementById('admin-password').focus();
+            document.getElementById('adminLogin').style.display = 'block';
+            toggleMenu();
         }
 
         function closeAdminLogin() {
-            document.getElementById('admin-login').style.display = 'none';
-            document.getElementById('admin-password').value = '';
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
         }
 
         function checkAdminPassword() {
-            const password = document.getElementById('admin-password').value;
-            // SENHA: admin123 (altere para uma senha segura)
-            if (password === 'admin123') {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
                 closeAdminLogin();
-                alert('Acesso concedido! Painel administrativo em desenvolvimento.');
-                // Aqui você pode redirecionar para o painel admin completo
-                // window.location.href = 'admin-painel.html';
+                showAdminPanel();
             } else {
                 alert('❌ Senha incorreta! Tente novamente.');
-                document.getElementById('admin-password').value = '';
-                document.getElementById('admin-password').focus();
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
             }
         }
 
-        // Atalho de teclado: Ctrl + Alt + A
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.altKey && e.key === 'a') {
-                showAdminLogin();
-                e.preventDefault();
+        function showAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminSettings();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        function changeColor(primary, secondary) {
+            document.documentElement.style.setProperty('--primary-color', primary);
+            document.documentElement.style.setProperty('--secondary-color', secondary);
+            
+            // Atualizar classes ativas
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function loadAdminSettings() {
+            // Carregar configurações salvas
+            const savedHours = localStorage.getItem('businessHours');
+            if (savedHours) {
+                document.getElementById('businessHours').value = savedHours;
+            }
+        }
+
+        function saveAdminSettings() {
+            // Salvar horário de funcionamento
+            const hours = document.getElementById('businessHours').value;
+            localStorage.setItem('businessHours', hours);
+            
+            // Salvar cores
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+            const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color');
+            localStorage.setItem('primaryColor', primaryColor);
+            localStorage.setItem('secondaryColor', secondaryColor);
+            
+            alert('Configurações salvas com sucesso!');
+            closeAdminPanel();
+        }
+
+        function addNewProduct() {
+            const category = prompt('Em qual categoria adicionar o produto? (tradicionais, especiais, acompanhamentos)');
+            const name = prompt('Nome do produto:');
+            const description = prompt('Descrição:');
+            const price = prompt('Preço:');
+            
+            if (name && description && price) {
+                // Aqui você implementaria a lógica para adicionar o produto
+                alert('Produto adicionado com sucesso!');
+            }
+        }
+
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCart();
+            checkBusinessHours();
+            
+            // Carregar cores salvas
+            const savedPrimary = localStorage.getItem('primaryColor');
+            const savedSecondary = localStorage.getItem('secondaryColor');
+            if (savedPrimary && savedSecondary) {
+                document.documentElement.style.setProperty('--primary-color', savedPrimary);
+                document.documentElement.style.setProperty('--secondary-color', savedSecondary);
+            }
+            
+            // Carregar horário salvo
+            const savedHours = localStorage.getItem('businessHours');
+            if (savedHours) {
+                document.querySelector('.hours').textContent = savedHours;
             }
         });
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCart();
+        // Fechar modais clicando fora
+        document.addEventListener('click', function(e) {
+            const modals = ['cartModal', 'checkoutModal', 'registrationModal', 'adminLogin', 'adminPanel'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
