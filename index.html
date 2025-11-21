@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saber do Caldo - Cardápio Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #DC2626;
@@ -14,6 +15,7 @@
             --text: #374151;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --success: #10B981;
+            --admin: #7C3AED;
         }
         
         * {
@@ -29,84 +31,29 @@
             line-height: 1.6;
         }
         
-        /* Tela de Abertura */
-        #splash-screen {
+        /* Botão Admin */
+        .admin-btn {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .logo-splash {
-            font-size: 3rem;
-            font-weight: bold;
-            text-align: center;
-            line-height: 1.2;
-            color: var(--primary);
-            margin-bottom: 2rem;
-        }
-        
-        .logo-splash span {
-            display: block;
-        }
-        
-        .enter-btn {
-            background: var(--primary);
+            top: 1rem;
+            left: 1rem;
+            background: var(--admin);
             color: white;
             border: none;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
             cursor: pointer;
+            z-index: 1000;
+            font-weight: bold;
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
         }
         
-        .enter-btn:hover {
-            background: var(--secondary);
+        .admin-btn:hover {
+            background: #6D28D9;
             transform: scale(1.05);
         }
         
-        /* Closed Message */
-        #closed-message {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            z-index: 9998;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .closed-content {
-            background: white;
-            color: var(--dark);
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 400px;
-        }
-        
-        .closed-title {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
+        /* Header */
         header {
             background: white;
             padding: 1rem;
@@ -170,6 +117,154 @@
             padding: 1rem;
         }
         
+        /* Painel Admin */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        
+        .admin-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1rem;
+        }
+        
+        .admin-title {
+            color: var(--admin);
+            font-size: 1.5rem;
+        }
+        
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .admin-tab {
+            padding: 0.7rem 1.2rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .admin-tab.active {
+            background: var(--admin);
+            color: white;
+            border-color: var(--admin);
+        }
+        
+        .admin-section {
+            display: none;
+        }
+        
+        .admin-section.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-danger {
+            background: #DC2626;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .product-list {
+            margin-top: 1rem;
+        }
+        
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Resto do CSS mantido igual */
         .category-tabs {
             display: flex;
             overflow-x: auto;
@@ -325,6 +420,18 @@
             background: var(--secondary);
         }
         
+        /* Delivery Fee */
+        .delivery-fee {
+            background: #FFF3CD;
+            border: 1px solid #FFEAA7;
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            text-align: center;
+            color: #856404;
+            font-weight: 600;
+        }
+        
         /* Cart */
         .cart-container {
             position: fixed;
@@ -368,18 +475,6 @@
             justify-content: center;
             font-size: 0.8rem;
             font-weight: bold;
-        }
-        
-        /* Delivery Fee */
-        .delivery-fee {
-            background: #FFF3CD;
-            border: 1px solid #FFEAA7;
-            border-radius: 8px;
-            padding: 0.8rem;
-            margin: 1rem 0;
-            text-align: center;
-            color: #856404;
-            font-weight: 600;
         }
         
         /* Cart Modal */
@@ -590,36 +685,18 @@
                 width: 100%;
             }
             
-            .logo-splash {
-                font-size: 2rem;
+            .admin-content {
+                padding: 1rem;
+                margin: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Tela de Abertura -->
-    <div id="splash-screen">
-        <div class="logo-splash">
-            <span>SABOR</span>
-            <span>→ DO</span>
-            <span>CALDO</span>
-        </div>
-        <button class="enter-btn" onclick="enterSite()">ENTRAR NO CARDÁPIO</button>
-    </div>
-
-    <!-- Mensagem de Fechado -->
-    <div id="closed-message">
-        <div class="closed-content">
-            <div class="closed-title">⏰ Estamos Fechados</div>
-            <p>No momento não estamos atendendo.</p>
-            <p><strong>Horário de Funcionamento:</strong></p>
-            <p>Quinta a Domingo</p>
-            <p>Das 19:00 às 23:00</p>
-            <button onclick="closeMessage()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
-                Entendi
-            </button>
-        </div>
-    </div>
+    <!-- Botão Admin -->
+    <button class="admin-btn" onclick="openAdmin()">
+        <i class="fas fa-cog"></i> Admin
+    </button>
 
     <!-- Header -->
     <header>
@@ -634,227 +711,39 @@
                 Quinta a Domingo • 19:00 - 23:00
             </div>
             <div class="social-links">
-                <a href="https://www.facebook.com/share/17yXQkER4N/" class="social-icon" target="_blank">f</a>
-                <a href="https://www.instagram.com/sabordocaldo.passosmg?igsh=MXV6ZHBpeTJhczVoNg==" class="social-icon" target="_blank">📷</a>
-                <a href="https://wa.me/5535999711358" class="social-icon" target="_blank">💬</a>
+                <a href="https://www.facebook.com/share/17yXQkER4N/" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/sabordocaldo.passosmg?igsh=MXV6ZHBpeTJhczVoNg==" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/5535999711358" class="social-icon" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="category-tabs">
-            <button class="category-btn active" data-category="caldos">Caldo de Feijão</button>
-            <button class="category-btn" data-category="lanches">Lanches</button>
-            <button class="category-btn" data-category="batatas">Batata Recheada</button>
-            <button class="category-btn" data-category="combos">Combos</button>
-            <button class="category-btn" data-category="bebidas">Bebidas</button>
-            <button class="category-btn" data-category="sobremesas">Sobremesas</button>
-        </div>
-        
-        <!-- Taxa de Entrega -->
+        <!-- Aviso de Horário (SEM BLOQUEIO) -->
         <div class="delivery-fee">
-            🛵 Taxa de Entrega: R$ 6,00
+            <i class="fas fa-clock"></i> Atendemos de Quinta a Domingo das 19:00 às 23:00
+            <br>🛵 Taxa de Entrega: R$ 6,00
         </div>
         
-        <!-- Seção de Caldos -->
-        <section id="caldos" class="menu-section active">
-            <h2 class="section-title">Caldo de Feijão</h2>
-            <div class="menu-grid">
-                <!-- Produtos de caldo aqui (mantive os 5 produtos anteriores) -->
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Caldo de Feijão Tradicional</h3>
-                            <span class="item-price">R$ 15,00</span>
-                        </div>
-                        <p class="item-description">Caldo de feijão bem temperado, acompanha torresmo crocante, torrada sequinha e cheiro verde fresco.</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="caldo-tradicional">-</button>
-                                <span class="quantity" data-item="caldo-tradicional">0</span>
-                                <button class="quantity-btn plus" data-item="caldo-tradicional">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="caldo-tradicional" data-name="Caldo de Feijão Tradicional" data-price="15.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ... outros 4 caldos ... -->
-            </div>
-        </section>
+        <div class="category-tabs" id="categoryTabs">
+            <!-- Categorias serão geradas dinamicamente -->
+        </div>
         
-        <!-- Seção de Lanches -->
-        <section id="lanches" class="menu-section">
-            <h2 class="section-title">Lanches</h2>
-            <div class="menu-grid">
-                <!-- Produtos de lanche aqui (mantive os 8 produtos anteriores) -->
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">X-Burguer</h3>
-                            <span class="item-price">R$ 18,00</span>
-                        </div>
-                        <p class="item-description">Pão, hambúrguer bovino, mussarela, presunto, batata palha, alface e tomate.</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="xburguer">-</button>
-                                <span class="quantity" data-item="xburguer">0</span>
-                                <button class="quantity-btn plus" data-item="xburguer">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="xburguer" data-name="X-Burguer" data-price="18.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ... outros 7 lanches ... -->
-            </div>
-        </section>
-        
-        <!-- Seção de Batatas Recheadas -->
-        <section id="batatas" class="menu-section">
-            <h2 class="section-title">Batata Recheada no Pote</h2>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Strogonoff de Frango</h3>
-                            <span class="item-price">R$ 25,00</span>
-                        </div>
-                        <p class="item-description">Batata sem casca amassada e temperada com recheio de estrogonofe de frango, requeijão cremoso, mussarela derretida, bacon crocante e cheiro verde fresco.</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="strogonoff">-</button>
-                                <span class="quantity" data-item="strogonoff">0</span>
-                                <button class="quantity-btn plus" data-item="strogonoff">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="strogonoff" data-name="Batata Strogonoff de Frango" data-price="25.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção de Combos -->
-        <section id="combos" class="menu-section">
-            <h2 class="section-title">Combos</h2>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Combo Família</h3>
-                            <span class="item-price">R$ 60,00</span>
-                        </div>
-                        <p class="item-description">2 Caldos Completos + 2 Refrigerantes 2L</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="combo-familia">-</button>
-                                <span class="quantity" data-item="combo-familia">0</span>
-                                <button class="quantity-btn plus" data-item="combo-familia">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="combo-familia" data-name="Combo Família" data-price="60.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção de Bebidas -->
-        <section id="bebidas" class="menu-section">
-            <h2 class="section-title">Bebidas</h2>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Coca-Cola 2L</h3>
-                            <span class="item-price">R$ 12,00</span>
-                        </div>
-                        <p class="item-description">Refrigerante Coca-Cola 2 litros</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="coca2l">-</button>
-                                <span class="quantity" data-item="coca2l">0</span>
-                                <button class="quantity-btn plus" data-item="coca2l">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="coca2l" data-name="Coca-Cola 2L" data-price="12.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Guaraná 2L</h3>
-                            <span class="item-price">R$ 10,00</span>
-                        </div>
-                        <p class="item-description">Refrigerante Guaraná Antarctica 2 litros</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="guarana2l">-</button>
-                                <span class="quantity" data-item="guarana2l">0</span>
-                                <button class="quantity-btn plus" data-item="guarana2l">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="guarana2l" data-name="Guaraná 2L" data-price="10.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção de Sobremesas -->
-        <section id="sobremesas" class="menu-section">
-            <h2 class="section-title">Sobremesas</h2>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Pudim</h3>
-                            <span class="item-price">R$ 8,00</span>
-                        </div>
-                        <p class="item-description">Pudim de leite condensado com calda de caramelo</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="pudim">-</button>
-                                <span class="quantity" data-item="pudim">0</span>
-                                <button class="quantity-btn plus" data-item="pudim">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="pudim" data-name="Pudim" data-price="8.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <h3 class="item-name">Brownie</h3>
-                            <span class="item-price">R$ 10,00</span>
-                        </div>
-                        <p class="item-description">Brownie de chocolate com sorvete</p>
-                        <div class="item-actions">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn minus" data-item="brownie">-</button>
-                                <span class="quantity" data-item="brownie">0</span>
-                                <button class="quantity-btn plus" data-item="brownie">+</button>
-                            </div>
-                            <button class="add-to-cart" data-item="brownie" data-name="Brownie" data-price="10.00">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div id="menuSections">
+            <!-- Seções do menu serão geradas dinamicamente -->
+        </div>
     </div>
     
     <!-- Cart Button -->
     <div class="cart-container">
         <button class="cart-btn">
-            🛒
+            <i class="fas fa-shopping-cart"></i>
             <span class="cart-badge">0</span>
         </button>
     </div>
@@ -864,7 +753,9 @@
         <div class="cart-content">
             <div class="cart-header">
                 <h2 class="cart-title">Seu Pedido</h2>
-                <button class="close-cart">✕</button>
+                <button class="close-cart">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="cart-items" id="cartItems">
                 <!-- Itens do carrinho aparecem aqui -->
@@ -882,7 +773,9 @@
             <div class="cart-total">
                 Total: R$ <span id="cartTotal">0,00</span>
             </div>
-            <button class="checkout-btn" id="checkoutBtn">Fazer Pedido</button>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-credit-card"></i> Fazer Pedido
+            </button>
         </div>
     </div>
 
@@ -891,7 +784,9 @@
         <div class="checkout-content">
             <div class="cart-header">
                 <h2 class="cart-title">Finalizar Pedido</h2>
-                <button class="close-checkout">✕</button>
+                <button class="close-checkout">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
             <form id="orderForm">
@@ -936,257 +831,332 @@
                 </div>
                 
                 <button type="submit" class="send-order-btn">
-                    💬 Enviar Pedido por WhatsApp
+                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
                 </button>
             </form>
         </div>
     </div>
 
-    <script>
-        // Verificar horário de funcionamento
-        function checkBusinessHours() {
-            const now = new Date();
-            const day = now.getDay(); // 0=Domingo, 1=Segunda, ..., 6=Sábado
-            const hour = now.getHours();
+    <!-- Painel de Administração -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2 class="admin-title">Painel de Administração</h2>
+                <button class="close-admin" onclick="closeAdmin()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             
-            // Quinta a Domingo (4 a 0) das 19:00 às 23:00
-            const isOpen = (day >= 4 || day === 0) && hour >= 19 && hour < 23;
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="products">Produtos</button>
+                <button class="admin-tab" data-tab="categories">Categorias</button>
+                <button class="admin-tab" data-tab="settings">Configurações</button>
+            </div>
             
-            if (!isOpen) {
-                document.getElementById('closed-message').style.display = 'flex';
-                return false;
-            }
-            return true;
-        }
-
-        // Tela de abertura
-        function enterSite() {
-            if (!checkBusinessHours()) return;
-            
-            document.getElementById('splash-screen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('splash-screen').style.display = 'none';
-            }, 500);
-        }
-
-        function closeMessage() {
-            document.getElementById('closed-message').style.display = 'none';
-            document.getElementById('splash-screen').style.display = 'flex';
-            document.getElementById('splash-screen').style.opacity = '1';
-        }
-
-        // Dados do carrinho
-        let cart = {};
-        let cartTotal = 0;
-        let itemsCount = 0;
-        const DELIVERY_FEE = 6.00;
-
-        // Elementos DOM
-        const cartBtn = document.querySelector('.cart-btn');
-        const cartBadge = document.querySelector('.cart-badge');
-        const cartModal = document.querySelector('.cart-modal');
-        const closeCart = document.querySelector('.close-cart');
-        const cartItems = document.getElementById('cartItems');
-        const cartSubtotalEl = document.getElementById('cartSubtotal');
-        const cartTotalEl = document.getElementById('cartTotal');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-        const checkoutModal = document.querySelector('.checkout-modal');
-        const closeCheckout = document.querySelector('.close-checkout');
-        const orderForm = document.getElementById('orderForm');
-        const trocoField = document.getElementById('trocoField');
-
-        // Navegação entre categorias
-        document.querySelectorAll('.category-btn').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active de todas as tabs
-                document.querySelectorAll('.category-btn').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-                
-                // Adiciona active na tab clicada
-                tab.classList.add('active');
-                const category = tab.getAttribute('data-category');
-                document.getElementById(category).classList.add('active');
-            });
-        });
-
-        // Controles de quantidade
-        document.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const item = e.target.getAttribute('data-item');
-                const isPlus = e.target.classList.contains('plus');
-                const quantityEl = document.querySelector(`.quantity[data-item="${item}"]`);
-                let quantity = parseInt(quantityEl.textContent);
-                
-                if (isPlus) {
-                    quantity++;
-                } else if (quantity > 0) {
-                    quantity--;
-                }
-                
-                quantityEl.textContent = quantity;
-            });
-        });
-
-        // Adicionar ao carrinho
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                if (!checkBusinessHours()) return;
-                
-                const item = e.target.getAttribute('data-item');
-                const name = e.target.getAttribute('data-name');
-                const price = parseFloat(e.target.getAttribute('data-price'));
-                const quantity = parseInt(document.querySelector(`.quantity[data-item="${item}"]`).textContent);
-                
-                if (quantity > 0) {
-                    addToCart(item, name, price, quantity);
-                    document.querySelector(`.quantity[data-item="${item}"]`).textContent = 0;
-                }
-            });
-        });
-
-        // Função para adicionar ao carrinho
-        function addToCart(item, name, price, quantity) {
-            if (cart[item]) {
-                cart[item].quantity += quantity;
-            } else {
-                cart[item] = { name, price, quantity };
-            }
-            
-            updateCart();
-        }
-
-        // Atualizar carrinho
-        function updateCart() {
-            cartItems.innerHTML = '';
-            let subtotal = 0;
-            itemsCount = 0;
-            
-            for (const item in cart) {
-                const { name, price, quantity } = cart[item];
-                const itemTotal = price * quantity;
-                subtotal += itemTotal;
-                itemsCount += quantity;
-                
-                const cartItemEl = document.createElement('div');
-                cartItemEl.className = 'cart-item';
-                cartItemEl.innerHTML = `
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${name}</div>
-                        <div class="cart-item-price">R$ ${price.toFixed(2)} × ${quantity}</div>
+            <!-- Seção Produtos -->
+            <div class="admin-section active" id="products-section">
+                <h3>Gerenciar Produtos</h3>
+                <form id="productForm">
+                    <div class="form-group">
+                        <label class="form-label">Nome do Produto</label>
+                        <input type="text" class="form-input" id="productName" required>
                     </div>
-                    <div class="cart-item-total">R$ ${itemTotal.toFixed(2)}</div>
-                `;
-                cartItems.appendChild(cartItemEl);
-            }
+                    <div class="form-group">
+                        <label class="form-label">Descrição</label>
+                        <textarea class="form-textarea" id="productDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preço (R$)</label>
+                        <input type="number" step="0.01" class="form-input" id="productPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-input" id="productCategory" required>
+                            <!-- Categorias serão preenchidas dinamicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Imagem (URL)</label>
+                        <input type="url" class="form-input" id="productImage" placeholder="https://exemplo.com/foto.jpg">
+                    </div>
+                    <button type="submit" class="btn-success">
+                        <i class="fas fa-plus"></i> Adicionar Produto
+                    </button>
+                </form>
+                
+                <div class="product-list" id="productsList">
+                    <!-- Lista de produtos será gerada aqui -->
+                </div>
+            </div>
             
-            cartSubtotalEl.textContent = subtotal.toFixed(2);
-            cartTotal = subtotal + DELIVERY_FEE;
-            cartTotalEl.textContent = cartTotal.toFixed(2);
-            cartBadge.textContent = itemsCount;
+            <!-- Seção Categorias -->
+            <div class="admin-section" id="categories-section">
+                <h3>Gerenciar Categorias</h3>
+                <form id="categoryForm">
+                    <div class="form-group">
+                        <label class="form-label">Nome da Categoria</label>
+                        <input type="text" class="form-input" id="categoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ID da Categoria</label>
+                        <input type="text" class="form-input" id="categoryId" required placeholder="Ex: lanches, bebidas">
+                    </div>
+                    <button type="submit" class="btn-success">
+                        <i class="fas fa-plus"></i> Adicionar Categoria
+                    </button>
+                </form>
+                
+                <div class="product-list" id="categoriesList">
+                    <!-- Lista de categorias será gerada aqui -->
+                </div>
+            </div>
             
-            if (itemsCount === 0) {
-                cartBadge.style.display = 'none';
-            } else {
-                cartBadge.style.display = 'flex';
+            <!-- Seção Configurações -->
+            <div class="admin-section" id="settings-section">
+                <h3>Configurações do Restaurante</h3>
+                <form id="settingsForm">
+                    <div class="form-group">
+                        <label class="form-label">Nome do Restaurante</label>
+                        <input type="text" class="form-input" id="restaurantName">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telefone</label>
+                        <input type="text" class="form-input" id="restaurantPhone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Horário de Funcionamento</label>
+                        <input type="text" class="form-input" id="restaurantHours">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Taxa de Entrega (R$)</label>
+                        <input type="number" step="0.01" class="form-input" id="deliveryFee" value="6.00">
+                    </div>
+                    <button type="submit" class="btn-success">
+                        <i class="fas fa-save"></i> Salvar Configurações
+                    </button>
+                </form>
+                
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                    <button class="btn-danger" onclick="resetAllData()">
+                        <i class="fas fa-trash"></i> Resetar Todos os Dados
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== SISTEMA DE ADMINISTRAÇÃO ====================
+        
+        // Dados iniciais
+        let restaurantData = JSON.parse(localStorage.getItem('restaurantData')) || {
+            name: "Sabor do Caldo",
+            phone: "(35) 99971-1358",
+            hours: "Quinta a Domingo • 19:00 - 23:00",
+            deliveryFee: 6.00
+        };
+
+        let categories = JSON.parse(localStorage.getItem('categories')) || [
+            { id: 'caldos', name: 'Caldo de Feijão' },
+            { id: 'lanches', name: 'Lanches' },
+            { id: 'batatas', name: 'Batata Recheada' },
+            { id: 'combos', name: 'Combos' },
+            { id: 'bebidas', name: 'Bebidas' },
+            { id: 'sobremesas', name: 'Sobremesas' }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('products')) || [
+            {
+                id: 'caldo-tradicional',
+                name: 'Caldo de Feijão Tradicional',
+                description: 'Caldo de feijão bem temperado, acompanha torresmo crocante, torrada sequinha e cheiro verde fresco.',
+                price: 15.00,
+                category: 'caldos',
+                image: ''
+            },
+            {
+                id: 'xburguer',
+                name: 'X-Burguer',
+                description: 'Pão, hambúrguer bovino, mussarela, presunto, batata palha, alface e tomate.',
+                price: 18.00,
+                category: 'lanches',
+                image: ''
+            },
+            {
+                id: 'coca2l',
+                name: 'Coca-Cola 2L',
+                description: 'Refrigerante Coca-Cola 2 litros',
+                price: 12.00,
+                category: 'bebidas',
+                image: ''
             }
+        ];
+
+        // Funções do Admin
+        function openAdmin() {
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminData();
         }
 
-        // Abrir/fechar carrinho
-        cartBtn.addEventListener('click', () => {
-            if (!checkBusinessHours()) return;
-            cartModal.classList.add('active');
-        });
+        function closeAdmin() {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
 
-        closeCart.addEventListener('click', () => {
-            cartModal.classList.remove('active');
-        });
+        function loadAdminData() {
+            // Carregar dados nos formulários
+            document.getElementById('restaurantName').value = restaurantData.name;
+            document.getElementById('restaurantPhone').value = restaurantData.phone;
+            document.getElementById('restaurantHours').value = restaurantData.hours;
+            document.getElementById('deliveryFee').value = restaurantData.deliveryFee;
+            
+            // Carregar categorias no select
+            const categorySelect = document.getElementById('productCategory');
+            categorySelect.innerHTML = '';
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+            
+            // Carregar lista de produtos
+            loadProductsList();
+            loadCategoriesList();
+        }
 
-        // Checkout
-        checkoutBtn.addEventListener('click', () => {
-            if (itemsCount > 0 && checkBusinessHours()) {
-                cartModal.classList.remove('active');
-                checkoutModal.classList.add('active');
-            }
-        });
-
-        closeCheckout.addEventListener('click', () => {
-            checkoutModal.classList.remove('active');
-        });
-
-        // Mostrar campo de troco se pagamento for em dinheiro
-        document.querySelector('select[name="paymentMethod"]').addEventListener('change', function() {
-            trocoField.style.display = this.value === 'dinheiro' ? 'block' : 'none';
-        });
-
-        // Enviar pedido por WhatsApp
-        orderForm.addEventListener('submit', function(e) {
+        // Gerenciar Produtos
+        document.getElementById('productForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            if (!checkBusinessHours()) return;
+            const product = {
+                id: 'prod-' + Date.now(),
+                name: document.getElementById('productName').value,
+                description: document.getElementById('productDescription').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                category: document.getElementById('productCategory').value,
+                image: document.getElementById('productImage').value
+            };
             
-            const formData = new FormData(this);
-            const orderData = Object.fromEntries(formData);
+            products.push(product);
+            localStorage.setItem('products', JSON.stringify(products));
+            loadProductsList();
+            renderMenu();
+            this.reset();
             
-            // Montar mensagem do pedido
-            let message = `🍽️ *NOVO PEDIDO - Sabor do Caldo* 🍽️\n\n`;
-            message += `*Cliente:* ${orderData.customerName}\n`;
-            message += `*Telefone:* ${orderData.customerPhone}\n`;
-            message += `*Endereço:* ${orderData.deliveryAddress}\n`;
-            
-            if (orderData.complement) {
-                message += `*Complemento:* ${orderData.complement}\n`;
-            }
-            
-            message += `\n*📋 ITENS DO PEDIDO:*\n`;
-            
-            for (const item in cart) {
-                const { name, price, quantity } = cart[item];
-                message += `• ${name} - R$ ${price.toFixed(2)} × ${quantity}\n`;
-            }
-            
-            message += `\n*💰 RESUMO DO PEDIDO:*\n`;
-            message += `Subtotal: R$ ${(cartTotal - DELIVERY_FEE).toFixed(2)}\n`;
-            message += `Taxa de Entrega: R$ ${DELIVERY_FEE.toFixed(2)}\n`;
-            message += `*TOTAL: R$ ${cartTotal.toFixed(2)}*\n\n`;
-            message += `*💳 Pagamento:* ${orderData.paymentMethod}\n`;
-            
-            if (orderData.paymentMethod === 'dinheiro' && orderData.changeFor) {
-                message += `*🪙 Troco para:* ${orderData.changeFor}\n`;
-            }
-            
-            if (orderData.orderNotes) {
-                message += `\n*📝 Observações:* ${orderData.orderNotes}\n`;
-            }
-            
-            message += `\n⏰ _Pedido recebido em ${new Date().toLocaleString('pt-BR')}_`;
-            
-            // Codificar mensagem para URL
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappNumber = '5535999711358';
-            
-            // Abrir WhatsApp
-            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-            
-            // Limpar carrinho e fechar modais
-            cart = {};
-            updateCart();
-            checkoutModal.classList.remove('active');
-            orderForm.reset();
-            
-            alert('Pedido enviado com sucesso! Em instantes você será direcionado para o WhatsApp.');
+            alert('Produto adicionado com sucesso!');
         });
 
-        // Inicializar
-        updateCart();
-        
-        // Verificar horário ao carregar a página
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                if (!checkBusinessHours()) {
-                    document.getElementById('splash-screen').style.display = 'none';
-                }
-            }, 100);
+        function loadProductsList() {
+            const list = document.getElementById('productsList');
+            list.innerHTML = '';
+            
+            products.forEach((product, index) => {
+                const category = categories.find(cat => cat.id === product.category)?.name || product.category;
+                const item = document.createElement('div');
+                item.className = 'product-item';
+                item.innerHTML = `
+                    <div>
+                        <strong>${product.name}</strong><br>
+                        <small>R$ ${product.price.toFixed(2)} - ${category}</small>
+                    </div>
+                    <button class="btn-danger" onclick="deleteProduct(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function deleteProduct(index) {
+            if (confirm('Tem certeza que deseja excluir este produto?')) {
+                products.splice(index, 1);
+                localStorage.setItem('products', JSON.stringify(products));
+                loadProductsList();
+                renderMenu();
+            }
+        }
+
+        // Gerenciar Categorias
+        document.getElementById('categoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const category = {
+                id: document.getElementById('categoryId').value.toLowerCase(),
+                name: document.getElementById('categoryName').value
+            };
+            
+            categories.push(category);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            loadCategoriesList();
+            renderMenu();
+            loadAdminData(); // Recarregar select de categorias
+            this.reset();
+            
+            alert('Categoria adicionada com sucesso!');
         });
-    </script>
-</body>
-</html>
+
+        function loadCategoriesList() {
+            const list = document.getElementById('categoriesList');
+            list.innerHTML = '';
+            
+            categories.forEach((category, index) => {
+                const item = document.createElement('div');
+                item.className = 'product-item';
+                item.innerHTML = `
+                    <div>
+                        <strong>${category.name}</strong><br>
+                        <small>ID: ${category.id}</small>
+                    </div>
+                    <button class="btn-danger" onclick="deleteCategory(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function deleteCategory(index) {
+            if (confirm('Tem certeza que deseja excluir esta categoria? Todos os produtos desta categoria serão removidos.')) {
+                // Remover produtos da categoria
+                products = products.filter(product => product.category !== categories[index].id);
+                categories.splice(index, 1);
+                localStorage.setItem('categories', JSON.stringify(categories));
+                localStorage.setItem('products', JSON.stringify(products));
+                loadCategoriesList();
+                loadProductsList();
+                renderMenu();
+                loadAdminData();
+            }
+        }
+
+        // Configurações
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            restaurantData = {
+                name: document.getElementById('restaurantName').value,
+                phone: document.getElementById('restaurantPhone').value,
+                hours: document.getElementById('restaurantHours').value,
+                deliveryFee: parseFloat(document.getElementById('deliveryFee').value)
+            };
+            
+            localStorage.setItem('restaurantData', JSON.stringify(restaurantData));
+            updateRestaurantInfo();
+            
+            alert('Configurações salvas com sucesso!');
+        });
+
+        function resetAllData() {
+            if (confirm('⚠️ ATENÇÃO: Isso irá resetar TODOS os dados para os padrões originais. Tem certeza?')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // Navegação do Admin
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+                
+                tab.classList.add
