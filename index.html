@@ -3,21 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saber do Caldo - Cardápio Digital</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>SABOR DO CALDO - Cardápio</title>
     <style>
-        :root {
-            --primary: #DC2626;
-            --secondary: #B91C1C;
-            --accent: #EF4444;
-            --light: #FFFFFF;
-            --dark: #1F2937;
-            --text: #374151;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --success: #10B981;
-            --admin: #7C3AED;
-        }
-        
         * {
             margin: 0;
             padding: 0;
@@ -26,1137 +13,226 @@
         }
         
         body {
-            background-color: white;
-            color: var(--text);
+            background-color: #f8f8f8;
+            color: #333;
             line-height: 1.6;
         }
         
-        /* Botão Admin */
-        .admin-btn {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            background: var(--admin);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            z-index: 1000;
-            font-weight: bold;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-        
-        .admin-btn:hover {
-            background: #6D28D9;
-            transform: scale(1.05);
-        }
-        
-        /* Header */
-        header {
-            background: white;
-            padding: 1rem;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 3px solid var(--primary);
-        }
-        
-        .restaurant-info {
-            text-align: center;
-        }
-        
-        .logo-header {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-        }
-        
-        .logo-header span {
-            display: block;
-        }
-        
-        .restaurant-details {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-        
-        .social-icon {
-            width: 35px;
-            height: 35px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
-        }
-        
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-        
-        /* Painel Admin */
-        .admin-panel {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 9999;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-        
-        .admin-content {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
             max-width: 800px;
             margin: 0 auto;
-            position: relative;
+            padding: 20px;
         }
         
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 1rem;
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .admin-title {
-            color: var(--admin);
+        .restaurant-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #c41e3a;
+        }
+        
+        .restaurant-subtitle {
             font-size: 1.5rem;
+            font-weight: normal;
+            margin-bottom: 20px;
+            color: #333;
         }
         
-        .close-admin {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text);
+        .location {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
         }
         
-        .admin-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+        .phone {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
         }
         
-        .admin-tab {
-            padding: 0.7rem 1.2rem;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
+        .hours {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
         
-        .admin-tab.active {
-            background: var(--admin);
-            color: white;
-            border-color: var(--admin);
+        .info-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .info-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #c41e3a;
+            font-weight: bold;
         }
         
         .admin-section {
-            display: none;
-        }
-        
-        .admin-section.active {
-            display: block;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
+            background-color: #fff;
+            padding: 20px;
             border-radius: 8px;
-            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
         }
         
-        .form-textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            min-height: 80px;
-            resize: vertical;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .btn-success {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .btn-danger {
-            background: #DC2626;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .product-list {
-            margin-top: 1rem;
-        }
-        
-        .product-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Resto do CSS mantido igual */
-        .category-tabs {
-            display: flex;
-            overflow-x: auto;
-            background: white;
-            padding: 0.5rem;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .category-btn {
-            padding: 0.8rem 1.2rem;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 25px;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            color: var(--text);
-        }
-        
-        .category-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .menu-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .menu-section.active {
-            display: block;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin: 2rem 0;
-            color: var(--dark);
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background-color: var(--primary);
-            margin: 0.5rem auto;
-        }
-        
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .menu-item {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            border: 1px solid #e9ecef;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(220, 38, 38, 0.1);
-        }
-        
-        .item-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-        }
-        
-        .item-details {
-            padding: 1.2rem;
-        }
-        
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-        }
-        
-        .item-name {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--dark);
-        }
-        
-        .item-price {
-            font-weight: bold;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        .item-description {
-            color: #666;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-        
-        .item-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .quantity {
-            min-width: 30px;
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .add-to-cart {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .add-to-cart:hover {
-            background: var(--secondary);
-        }
-        
-        /* Delivery Fee */
-        .delivery-fee {
-            background: #FFF3CD;
-            border: 1px solid #FFEAA7;
-            border-radius: 8px;
-            padding: 0.8rem;
-            margin: 1rem 0;
-            text-align: center;
-            color: #856404;
-            font-weight: 600;
-        }
-        
-        /* Cart */
-        .cart-container {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
-        
-        .cart-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .cart-btn:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
-        }
-        
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--secondary);
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        /* Cart Modal */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-        }
-        
-        .cart-modal.active {
-            display: flex;
-            align-items: end;
-        }
-        
-        .cart-content {
-            background: white;
-            width: 100%;
-            max-height: 80vh;
-            border-radius: 20px 20px 0 0;
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .cart-title {
+        .admin-title {
             font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--dark);
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
         }
         
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text);
-        }
-        
-        .cart-items {
-            margin-bottom: 1rem;
-        }
-        
-        .cart-item {
+        .password-form {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #eee;
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
         }
         
-        .cart-item-info {
-            flex: 1;
-        }
-        
-        .cart-item-name {
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        .cart-item-price {
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-        
-        .cart-item-total {
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        .cart-summary {
-            border-top: 2px solid #eee;
-            padding-top: 1rem;
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .cart-total {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: right;
-            margin: 1rem 0;
-            padding-top: 1rem;
-            border-top: 2px solid #eee;
-            color: var(--primary);
-        }
-        
-        .checkout-btn {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            width: 100%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .checkout-btn:hover {
-            background: #0DA271;
-        }
-        
-        /* Checkout Modal */
-        .checkout-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 3000;
-        }
-        
-        .checkout-modal.active {
-            display: flex;
-            align-items: end;
-        }
-        
-        .checkout-content {
-            background: white;
-            width: 100%;
-            max-height: 90vh;
-            border-radius: 20px 20px 0 0;
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 0.8rem;
+        .password-input {
+            padding: 10px;
+            margin-bottom: 10px;
             border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
         }
         
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .send-order-btn {
-            background: #25D366;
+        .password-btn {
+            padding: 10px;
+            background-color: #c41e3a;
             color: white;
             border: none;
-            padding: 1rem;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            width: 100%;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            transition: background-color 0.3s;
         }
         
-        .send-order-btn:hover {
-            background: #1DA851;
+        .password-btn:hover {
+            background-color: #a0182f;
         }
         
-        .hidden {
+        .admin-content {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        
+        .admin-content h3 {
+            margin-bottom: 10px;
+            color: #c41e3a;
+        }
+        
+        .admin-content p {
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
             display: none;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
         }
         
-        @media (max-width: 768px) {
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .category-tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .category-btn {
-                width: 100%;
-            }
-            
-            .admin-content {
-                padding: 1rem;
-                margin: 1rem;
-            }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #666;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- Botão Admin -->
-    <button class="admin-btn" onclick="openAdmin()">
-        <i class="fas fa-cog"></i> Admin
-    </button>
-
-    <!-- Header -->
-    <header>
-        <div class="restaurant-info">
-            <div class="logo-header">
-                <span>SABOR</span>
-                <span>→ DO</span>
-                <span>CALDO</span>
-            </div>
-            <div class="restaurant-details">
-                Passos - MG • (35) 99971-1358<br>
-                Quinta a Domingo • 19:00 - 23:00
-            </div>
-            <div class="social-links">
-                <a href="https://www.facebook.com/share/17yXQkER4N/" class="social-icon" target="_blank">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://www.instagram.com/sabordocaldo.passosmg?igsh=MXV6ZHBpeTJhczVoNg==" class="social-icon" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://wa.me/5535999711358" class="social-icon" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-
     <div class="container">
-        <!-- Aviso de Horário (SEM BLOQUEIO) -->
-        <div class="delivery-fee">
-            <i class="fas fa-clock"></i> Atendemos de Quinta a Domingo das 19:00 às 23:00
-            <br>🛵 Taxa de Entrega: R$ 6,00
+        <header>
+            <div class="restaurant-name">SABOR</div>
+            <div class="restaurant-subtitle">→ DO CALDO</div>
+            <div class="location">Passos - MG</div>
+            <div class="phone">(35) 99971-1358</div>
+            <div class="hours">Quinta a Domingo • 19:00 - 23:00</div>
+        </header>
+        
+        <div class="info-box">
+            <div class="info-title">Horário de Atendimento</div>
+            <p>Atendemos de Quinta a Domingo das 19:00 às 23:00</p>
         </div>
         
-        <div class="category-tabs" id="categoryTabs">
-            <!-- Categorias serão geradas dinamicamente -->
+        <div class="info-box">
+            <div class="info-title">Taxa de Entrega</div>
+            <p>Taxa de Entrega: R$ 6,00</p>
         </div>
         
-        <div id="menuSections">
-            <!-- Seções do menu serão geradas dinamicamente -->
-        </div>
-    </div>
-    
-    <!-- Cart Button -->
-    <div class="cart-container">
-        <button class="cart-btn">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-badge">0</span>
-        </button>
-    </div>
-
-    <!-- Cart Modal -->
-    <div class="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2 class="cart-title">Seu Pedido</h2>
-                <button class="close-cart">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Itens do carrinho aparecem aqui -->
-            </div>
-            <div class="cart-summary">
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span>R$ <span id="cartSubtotal">0,00</span></span>
-                </div>
-                <div class="summary-row">
-                    <span>Taxa de Entrega:</span>
-                    <span>R$ 6,00</span>
-                </div>
-            </div>
-            <div class="cart-total">
-                Total: R$ <span id="cartTotal">0,00</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn">
-                <i class="fas fa-credit-card"></i> Fazer Pedido
-            </button>
-        </div>
-    </div>
-
-    <!-- Checkout Modal -->
-    <div class="checkout-modal">
-        <div class="checkout-content">
-            <div class="cart-header">
-                <h2 class="cart-title">Finalizar Pedido</h2>
-                <button class="close-checkout">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <form id="orderForm">
-                <div class="form-group">
-                    <label class="form-label">Nome *</label>
-                    <input type="text" class="form-input" name="customerName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Telefone *</label>
-                    <input type="tel" class="form-input" name="customerPhone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Endereço de Entrega *</label>
-                    <input type="text" class="form-input" name="deliveryAddress" placeholder="Rua, número, bairro..." required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Complemento</label>
-                    <input type="text" class="form-input" name="complement" placeholder="Apartamento, bloco, referência...">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Observações do Pedido</label>
-                    <textarea class="form-input" name="orderNotes" placeholder="Alguma observação especial?"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Forma de Pagamento *</label>
-                    <select class="form-input" name="paymentMethod" required>
-                        <option value="">Selecione...</option>
-                        <option value="dinheiro">Dinheiro</option>
-                        <option value="cartao">Cartão</option>
-                        <option value="pix">PIX</option>
-                    </select>
-                </div>
-                
-                <div class="form-group" id="trocoField" style="display: none;">
-                    <label class="form-label">Troco para quanto?</label>
-                    <input type="text" class="form-input" name="changeFor" placeholder="R$ 50,00">
-                </div>
-                
-                <button type="submit" class="send-order-btn">
-                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
-                </button>
+        <div class="admin-section">
+            <div class="admin-title">Área Administrativa</div>
+            <form class="password-form" id="passwordForm">
+                <input type="password" class="password-input" id="passwordInput" placeholder="Digite a senha" required>
+                <button type="submit" class="password-btn">Acessar</button>
             </form>
-        </div>
-    </div>
-
-    <!-- Painel de Administração -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-content">
-            <div class="admin-header">
-                <h2 class="admin-title">Painel de Administração</h2>
-                <button class="close-admin" onclick="closeAdmin()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+            <div class="success-message" id="successMessage">Acesso liberado com sucesso!</div>
+            <div class="error-message" id="errorMessage">Senha incorreta. Tente novamente.</div>
             
-            <div class="admin-tabs">
-                <button class="admin-tab active" data-tab="products">Produtos</button>
-                <button class="admin-tab" data-tab="categories">Categorias</button>
-                <button class="admin-tab" data-tab="settings">Configurações</button>
-            </div>
-            
-            <!-- Seção Produtos -->
-            <div class="admin-section active" id="products-section">
-                <h3>Gerenciar Produtos</h3>
-                <form id="productForm">
-                    <div class="form-group">
-                        <label class="form-label">Nome do Produto</label>
-                        <input type="text" class="form-input" id="productName" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Descrição</label>
-                        <textarea class="form-textarea" id="productDescription" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Preço (R$)</label>
-                        <input type="number" step="0.01" class="form-input" id="productPrice" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Categoria</label>
-                        <select class="form-input" id="productCategory" required>
-                            <!-- Categorias serão preenchidas dinamicamente -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Imagem (URL)</label>
-                        <input type="url" class="form-input" id="productImage" placeholder="https://exemplo.com/foto.jpg">
-                    </div>
-                    <button type="submit" class="btn-success">
-                        <i class="fas fa-plus"></i> Adicionar Produto
-                    </button>
-                </form>
-                
-                <div class="product-list" id="productsList">
-                    <!-- Lista de produtos será gerada aqui -->
-                </div>
-            </div>
-            
-            <!-- Seção Categorias -->
-            <div class="admin-section" id="categories-section">
-                <h3>Gerenciar Categorias</h3>
-                <form id="categoryForm">
-                    <div class="form-group">
-                        <label class="form-label">Nome da Categoria</label>
-                        <input type="text" class="form-input" id="categoryName" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">ID da Categoria</label>
-                        <input type="text" class="form-input" id="categoryId" required placeholder="Ex: lanches, bebidas">
-                    </div>
-                    <button type="submit" class="btn-success">
-                        <i class="fas fa-plus"></i> Adicionar Categoria
-                    </button>
-                </form>
-                
-                <div class="product-list" id="categoriesList">
-                    <!-- Lista de categorias será gerada aqui -->
-                </div>
-            </div>
-            
-            <!-- Seção Configurações -->
-            <div class="admin-section" id="settings-section">
-                <h3>Configurações do Restaurante</h3>
-                <form id="settingsForm">
-                    <div class="form-group">
-                        <label class="form-label">Nome do Restaurante</label>
-                        <input type="text" class="form-input" id="restaurantName">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Telefone</label>
-                        <input type="text" class="form-input" id="restaurantPhone">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Horário de Funcionamento</label>
-                        <input type="text" class="form-input" id="restaurantHours">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Taxa de Entrega (R$)</label>
-                        <input type="number" step="0.01" class="form-input" id="deliveryFee" value="6.00">
-                    </div>
-                    <button type="submit" class="btn-success">
-                        <i class="fas fa-save"></i> Salvar Configurações
-                    </button>
-                </form>
-                
-                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
-                    <button class="btn-danger" onclick="resetAllData()">
-                        <i class="fas fa-trash"></i> Resetar Todos os Dados
-                    </button>
-                </div>
+            <div class="admin-content" id="adminContent">
+                <h3>Painel Administrativo</h3>
+                <p>Bem-vindo ao painel administrativo do SABOR DO CALDO.</p>
+                <p>Aqui você pode gerenciar o cardápio, pedidos e configurações do restaurante.</p>
+                <p>Funcionalidades disponíveis:</p>
+                <ul>
+                    <li>Gerenciar cardápio</li>
+                    <li>Visualizar pedidos</li>
+                    <li>Configurar horários</li>
+                    <li>Alterar informações de contato</li>
+                </ul>
             </div>
         </div>
+        
+        <footer>
+            <p>SABOR DO CALDO &copy; 2023 - Todos os direitos reservados</p>
+        </footer>
     </div>
 
     <script>
-        // ==================== SISTEMA DE ADMINISTRAÇÃO ====================
-        
-        // Dados iniciais
-        let restaurantData = JSON.parse(localStorage.getItem('restaurantData')) || {
-            name: "Sabor do Caldo",
-            phone: "(35) 99971-1358",
-            hours: "Quinta a Domingo • 19:00 - 23:00",
-            deliveryFee: 6.00
-        };
-
-        let categories = JSON.parse(localStorage.getItem('categories')) || [
-            { id: 'caldos', name: 'Caldo de Feijão' },
-            { id: 'lanches', name: 'Lanches' },
-            { id: 'batatas', name: 'Batata Recheada' },
-            { id: 'combos', name: 'Combos' },
-            { id: 'bebidas', name: 'Bebidas' },
-            { id: 'sobremesas', name: 'Sobremesas' }
-        ];
-
-        let products = JSON.parse(localStorage.getItem('products')) || [
-            {
-                id: 'caldo-tradicional',
-                name: 'Caldo de Feijão Tradicional',
-                description: 'Caldo de feijão bem temperado, acompanha torresmo crocante, torrada sequinha e cheiro verde fresco.',
-                price: 15.00,
-                category: 'caldos',
-                image: ''
-            },
-            {
-                id: 'xburguer',
-                name: 'X-Burguer',
-                description: 'Pão, hambúrguer bovino, mussarela, presunto, batata palha, alface e tomate.',
-                price: 18.00,
-                category: 'lanches',
-                image: ''
-            },
-            {
-                id: 'coca2l',
-                name: 'Coca-Cola 2L',
-                description: 'Refrigerante Coca-Cola 2 litros',
-                price: 12.00,
-                category: 'bebidas',
-                image: ''
-            }
-        ];
-
-        // Funções do Admin
-        function openAdmin() {
-            document.getElementById('adminPanel').style.display = 'block';
-            loadAdminData();
-        }
-
-        function closeAdmin() {
-            document.getElementById('adminPanel').style.display = 'none';
-        }
-
-        function loadAdminData() {
-            // Carregar dados nos formulários
-            document.getElementById('restaurantName').value = restaurantData.name;
-            document.getElementById('restaurantPhone').value = restaurantData.phone;
-            document.getElementById('restaurantHours').value = restaurantData.hours;
-            document.getElementById('deliveryFee').value = restaurantData.deliveryFee;
-            
-            // Carregar categorias no select
-            const categorySelect = document.getElementById('productCategory');
-            categorySelect.innerHTML = '';
-            categories.forEach(category => {
-                const option = document.createElement('option');
-                option.value = category.id;
-                option.textContent = category.name;
-                categorySelect.appendChild(option);
-            });
-            
-            // Carregar lista de produtos
-            loadProductsList();
-            loadCategoriesList();
-        }
-
-        // Gerenciar Produtos
-        document.getElementById('productForm').addEventListener('submit', function(e) {
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const product = {
-                id: 'prod-' + Date.now(),
-                name: document.getElementById('productName').value,
-                description: document.getElementById('productDescription').value,
-                price: parseFloat(document.getElementById('productPrice').value),
-                category: document.getElementById('productCategory').value,
-                image: document.getElementById('productImage').value
-            };
+            const passwordInput = document.getElementById('passwordInput');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const adminContent = document.getElementById('adminContent');
             
-            products.push(product);
-            localStorage.setItem('products', JSON.stringify(products));
-            loadProductsList();
-            renderMenu();
-            this.reset();
-            
-            alert('Produto adicionado com sucesso!');
-        });
-
-        function loadProductsList() {
-            const list = document.getElementById('productsList');
-            list.innerHTML = '';
-            
-            products.forEach((product, index) => {
-                const category = categories.find(cat => cat.id === product.category)?.name || product.category;
-                const item = document.createElement('div');
-                item.className = 'product-item';
-                item.innerHTML = `
-                    <div>
-                        <strong>${product.name}</strong><br>
-                        <small>R$ ${product.price.toFixed(2)} - ${category}</small>
-                    </div>
-                    <button class="btn-danger" onclick="deleteProduct(${index})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        function deleteProduct(index) {
-            if (confirm('Tem certeza que deseja excluir este produto?')) {
-                products.splice(index, 1);
-                localStorage.setItem('products', JSON.stringify(products));
-                loadProductsList();
-                renderMenu();
+            // Senha definida: 12345678
+            if (passwordInput.value === '12345678') {
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                adminContent.style.display = 'block';
+                passwordInput.value = '';
+            } else {
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                adminContent.style.display = 'none';
+                passwordInput.value = '';
             }
-        }
-
-        // Gerenciar Categorias
-        document.getElementById('categoryForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const category = {
-                id: document.getElementById('categoryId').value.toLowerCase(),
-                name: document.getElementById('categoryName').value
-            };
-            
-            categories.push(category);
-            localStorage.setItem('categories', JSON.stringify(categories));
-            loadCategoriesList();
-            renderMenu();
-            loadAdminData(); // Recarregar select de categorias
-            this.reset();
-            
-            alert('Categoria adicionada com sucesso!');
         });
-
-        function loadCategoriesList() {
-            const list = document.getElementById('categoriesList');
-            list.innerHTML = '';
-            
-            categories.forEach((category, index) => {
-                const item = document.createElement('div');
-                item.className = 'product-item';
-                item.innerHTML = `
-                    <div>
-                        <strong>${category.name}</strong><br>
-                        <small>ID: ${category.id}</small>
-                    </div>
-                    <button class="btn-danger" onclick="deleteCategory(${index})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        function deleteCategory(index) {
-            if (confirm('Tem certeza que deseja excluir esta categoria? Todos os produtos desta categoria serão removidos.')) {
-                // Remover produtos da categoria
-                products = products.filter(product => product.category !== categories[index].id);
-                categories.splice(index, 1);
-                localStorage.setItem('categories', JSON.stringify(categories));
-                localStorage.setItem('products', JSON.stringify(products));
-                loadCategoriesList();
-                loadProductsList();
-                renderMenu();
-                loadAdminData();
-            }
-        }
-
-        // Configurações
-        document.getElementById('settingsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            restaurantData = {
-                name: document.getElementById('restaurantName').value,
-                phone: document.getElementById('restaurantPhone').value,
-                hours: document.getElementById('restaurantHours').value,
-                deliveryFee: parseFloat(document.getElementById('deliveryFee').value)
-            };
-            
-            localStorage.setItem('restaurantData', JSON.stringify(restaurantData));
-            updateRestaurantInfo();
-            
-            alert('Configurações salvas com sucesso!');
-        });
-
-        function resetAllData() {
-            if (confirm('⚠️ ATENÇÃO: Isso irá resetar TODOS os dados para os padrões originais. Tem certeza?')) {
-                localStorage.clear();
-                location.reload();
-            }
-        }
-
-        // Navegação do Admin
-        document.querySelectorAll('.admin-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-                
-                tab.classList.add
+    </script>
+</body>
+</html>
