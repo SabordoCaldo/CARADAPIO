@@ -1017,22 +1017,22 @@
 
         // Adicionar ao carrinho
         function addToCart(button) {
-            const productCard = button.parentElement;
-            const productName = productCard.querySelector('.product-name').textContent;
-            const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('R$ ', '').replace(',', '.'));
-            const quantity = parseInt(productCard.querySelector('.quantity-display').textContent);
-            
-            const existingItem = cart.find(item => item.product === productName);
-            
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({
-                    product: productName,
-                    price: productPrice,
-                    quantity: quantity
-                });
-            }
+    const productCard = button.parentElement;
+    const productName = productCard.querySelector('.product-name').textContent;
+    const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('R$ ', '').replace(',', '.'));
+    const quantity = parseInt(productCard.querySelector('.quantity-display').textContent);
+    
+    const existingItem = cart.find(item => item.product === productName);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({
+            product: productName,
+            price: productPrice,
+            quantity: quantity
+        });
+    }
             
             // Resetar quantidade para 1
             productCard.querySelector('.quantity-display').textContent = '1';
