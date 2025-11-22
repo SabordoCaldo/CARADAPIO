@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,1447 +10,309 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #FFFFFF;
-            color: #212121;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #333;
+            line-height: 1.4;
+            max-width: 500px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 10px;
         }
-
-        /* Header */
+        
         .header {
-            background: #D32F2F;
-            color: white;
-            padding: 20px 0;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .logo {
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .horario {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            opacity: 0.9;
-        }
-
-        .cidade {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Categorias */
-        .categories {
-            display: flex;
-            overflow-x: auto;
             padding: 15px 0;
-            background: #F5F5F5;
-            gap: 10px;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .categories::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-btn {
-            padding: 12px 24px;
-            background: white;
-            border: 2px solid #D32F2F;
-            border-radius: 25px;
-            color: #D32F2F;
-            font-weight: bold;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .category-btn.active {
-            background: #D32F2F;
-            color: white;
-        }
-
-        /* Produtos */
-        .products {
-            padding: 20px 0;
-            display: grid;
-            gap: 20px;
-            min-height: 60vh;
-        }
-
-        .category-section {
-            display: none;
-        }
-
-        .category-section.active {
-            display: block;
-        }
-
-        .category-title {
-            font-size: 1.6rem;
-            color: #D32F2F;
+            border-bottom: 2px solid #8B4513;
             margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 2px solid #D32F2F;
-            padding-bottom: 10px;
         }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        
+        .header h1 {
+            color: #8B4513;
+            font-size: 22px;
+            margin-bottom: 5px;
         }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border: 1px solid #E0E0E0;
-            transition: transform 0.3s ease;
+        
+        .url {
+            color: #666;
+            font-size: 14px;
         }
-
-        .product-card:hover {
-            transform: translateY(-2px);
+        
+        .product {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
-
-        .product-name {
-            font-size: 1.3rem;
-            color: #D32F2F;
-            margin-bottom: 10px;
+        
+        .product-title {
             font-weight: bold;
+            color: #8B4513;
+            margin-bottom: 8px;
+            font-size: 16px;
         }
-
+        
         .product-description {
             color: #666;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 14px;
+            margin-bottom: 10px;
         }
-
+        
         .product-price {
-            font-size: 1.4rem;
-            color: #B71C1C;
             font-weight: bold;
-            margin-bottom: 15px;
+            color: #228B22;
+            font-size: 18px;
+            margin-bottom: 10px;
         }
-
-        .quantity-selector {
+        
+        .quantity-control {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            justify-content: center;
+            margin-bottom: 10px;
         }
-
+        
         .quantity-btn {
-            background: #D32F2F;
+            width: 30px;
+            height: 30px;
+            background: #8B4513;
             color: white;
             border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-
+        
         .quantity-display {
-            font-size: 1.2rem;
+            margin: 0 10px;
             font-weight: bold;
-            min-width: 40px;
+            min-width: 20px;
             text-align: center;
         }
-
+        
         .add-to-cart {
-            background: #D32F2F;
+            width: 100%;
+            background: #8B4513;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
             cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: background 0.3s ease;
-            font-size: 1rem;
         }
-
-        .add-to-cart:hover {
-            background: #B71C1C;
-        }
-
-        /* Carrinho */
-        .cart-sidebar {
+        
+        .floating-buttons {
             position: fixed;
-            top: 0;
-            right: -400px;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
             background: white;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-            transition: right 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
+            border-top: 1px solid #ddd;
+            padding: 10px;
         }
-
-        .cart-sidebar.active {
-            right: 0;
-        }
-
-        .cart-header {
-            background: #D32F2F;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #E0E0E0;
-        }
-
-        .item-info {
-            flex: 1;
-        }
-
-        .item-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .item-price {
-            color: #D32F2F;
-            font-weight: bold;
-        }
-
-        .item-quantity {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .quantity-btn-small {
-            background: #D32F2F;
+        
+        .cart-button, .checkout-button {
+            width: 100%;
+            background: #8B4513;
             color: white;
             border: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .cart-total {
-            padding: 20px;
-            background: #F5F5F5;
-            border-top: 2px solid #D32F2F;
-        }
-
-        .total-line {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .final-total {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #B71C1C;
-            border-top: 1px solid #DDD;
-            padding-top: 10px;
-            margin-top: 10px;
-        }
-
-        .checkout-btn {
-            background: #27AE60;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            transition: background 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .checkout-btn:hover {
-            background: #219653;
-        }
-
-        /* Overlay */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            z-index: 999;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Customer Data Modal */
-        .customer-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 1002;
-            max-width: 500px;
-            width: 90%;
-        }
-
-        .customer-modal.active {
-            display: block;
-        }
-
-        .customer-title {
-            color: #D32F2F;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.4rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .form-input {
-            width: 100%;
+            border-radius: 4px;
             padding: 12px;
-            border: 2px solid #E0E0E0;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #D32F2F;
-        }
-
-        .form-input.error {
-            border-color: #ff4444;
-        }
-
-        .error-message {
-            color: #ff4444;
-            font-size: 0.8rem;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .confirm-customer {
-            background: #D32F2F;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 14px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background 0.3s ease;
         }
-
-        .confirm-customer:hover {
-            background: #B71C1C;
+        
+        .checkout-button {
+            background: #228B22;
         }
-
-        /* Footer */
+        
         .footer {
-            background: #D32F2F;
-            color: white;
-            padding: 30px 0;
             text-align: center;
-            margin-top: 40px;
+            padding: 15px 0;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 80px;
         }
-
-        .footer-info {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            line-height: 1.8;
-        }
-
-        .footer-line {
-            margin-bottom: 5px;
-        }
-
-        /* Social Buttons Above Footer */
-        .social-container {
-            background: #B71C1C;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-btn {
-            background: #FFFFFF;
-            color: #D32F2F;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .social-btn:hover {
-            background: #F5F5F5;
-            transform: scale(1.1);
-        }
-
-        /* Floating Cart Button */
-        .floating-cart {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            background: #D32F2F;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 100;
-            font-size: 1.5rem;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #FF5252;
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        /* Payment Modal */
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 1001;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .payment-modal.active {
-            display: block;
-        }
-
-        .payment-title {
-            color: #D32F2F;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.4rem;
-        }
-
-        .payment-option {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-            padding: 15px;
-            border: 2px solid #E0E0E0;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .payment-option.selected {
-            border-color: #D32F2F;
-            background: #FFF5F5;
-        }
-
-        .payment-option input {
-            display: none;
-        }
-
-        .troco-input {
-            margin-top: 10px;
-            padding: 12px;
-            border: 1px solid #DDD;
-            border-radius: 5px;
-            width: 100%;
-            display: none;
-            font-size: 1rem;
-        }
-
-        .confirm-payment {
-            background: #D32F2F;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background 0.3s ease;
-        }
-
-        .confirm-payment:hover {
-            background: #B71C1C;
-        }
-
-        @media (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cart-sidebar {
-                max-width: 100%;
-            }
-            
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .social-buttons {
-                gap: 15px;
-            }
-            
-            .social-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-            
-            .floating-cart {
-                bottom: 25px;
-                right: 15px;
-                width: 55px;
-                height: 55px;
-            }
-            
-            .customer-modal {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .category-btn {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-            
-            .product-card {
-                padding: 15px;
-            }
-            
-            .footer-info {
-                font-size: 0.8rem;
-            }
-            
-            .social-buttons {
-                gap: 10px;
-            }
-            
-            .social-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
+        
+        .footer strong {
+            color: #8B4513;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">SABOR DO CALDO</div>
-            <div class="horario">Quinta a Domingo • 19h às 23h</div>
-            <div class="cidade">Passos-MG</div>
-        </div>
-    </header>
-
-    <!-- Categorias -->
-    <div class="container">
-        <div class="categories">
-            <button class="category-btn active" data-category="caldos">Caldo de Feijão</button>
-            <button class="category-btn" data-category="lanches">Lanches Artesanal</button>
-            <button class="category-btn" data-category="batatas">Batata no Pote</button>
-            <button class="category-btn" data-category="combos">Combos</button>
-            <button class="category-btn" data-category="bebidas">Refrigerante</button>
-        </div>
+    <!-- CABEÇALHO SIMPLES -->
+    <div class="header">
+        <h1>Sabor do Caldo - Cardápio Digital</h1>
+        <div class="url">sabordocaldo.github.io</div>
     </div>
 
-    <!-- Produtos -->
-    <div class="container">
-        <div class="products">
-            <!-- Caldos de Feijão -->
-            <div class="category-section active" id="caldos">
-                <h2 class="category-title">Caldo de Feijão - Pote 500G</h2>
-                <div class="product-grid">
-                    <!-- Produtos mantidos iguais -->
-                    <div class="product-card">
-                        <div class="product-name">Tradicional</div>
-                        <div class="product-description">Caldo de feijão, acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
-                        <div class="product-price">R$ 14,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Bacon e Calabresa</div>
-                        <div class="product-description">Caldo de feijão com bacon e calabresa. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
-                        <div class="product-price">R$ 16,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Bacon, Calabresa e Ovo</div>
-                        <div class="product-description">Caldo de feijão com bacon, calabresa e 3 ovos de codorna. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
-                        <div class="product-price">R$ 17,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Bacon, Calabresa e Mussarela</div>
-                        <div class="product-description">Caldo de feijão com bacon, calabresa e mussarela. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
-                        <div class="product-price">R$ 18,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Completo</div>
-                        <div class="product-description">Caldo de feijão com bacon, calabresa, 3 ovos de codorna e mussarela. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
-                        <div class="product-price">R$ 19,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Demais categorias mantidas iguais -->
-            <!-- Lanches Artesanais -->
-            <div class="category-section" id="lanches">
-                <h2 class="category-title">Lanches Artesanais</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-name">X-Burguer</div>
-                        <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, batata palha, alface e tomate.</div>
-                        <div class="product-price">R$ 17,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">X-Salada</div>
-                        <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, salada de batata, batata palha, alface e tomate.</div>
-                        <div class="product-price">R$ 19,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">X-Egg</div>
-                        <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, ovo, batata palha, alface e tomate.</div>
-                        <div class="product-price">R$ 19,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">X-Bacon</div>
-                        <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, batata palha, alface e tomate.</div>
-                        <div class="product-price">R$ 21,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">X-Bacon Egg</div>
-                        <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, ovo, batata palha, alface e tomate.</div>
-                        <div class="product-price">R$ 23,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">X-Tudo</div>
-                        <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, ovo, salada de batata, batata palha, alface e tomate.</div>
-                        <div class="product-price">R$ 25,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Batatas no Pote -->
-            <div class="category-section" id="batatas">
-                <h2 class="category-title">Batata no Pote - 500G</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-name">Frango Desfiado com Cheddar</div>
-                        <div class="product-description">Batata cozida sem casca com frango desfiado, cheddar cremoso, mussarela, bacon e cheiro verde.</div>
-                        <div class="product-price">R$ 20,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Strogonoff de Frango</div>
-                        <div class="product-description">Batata cozida sem casca com recheio de strogonoff de frango, requeijão cremoso, mussarela, bacon e cheiro verde. Acompanha batata palha.</div>
-                        <div class="product-price">R$ 21,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Frango com Creme de Milho</div>
-                        <div class="product-description">Batata cozida sem casca com recheio de frango com creme de milho, requeijão cremoso, mussarela, bacon e cheiro verde. Acompanha batata palha.</div>
-                        <div class="product-price">R$ 21,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Bolonhesa</div>
-                        <div class="product-description">Batata cozida sem casca com carne moída com molho vermelho, requeijão cremoso, mussarela, bacon e cheiro verde.</div>
-                        <div class="product-price">R$ 22,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Carne Bovina Desfiada</div>
-                        <div class="product-description">Batata cozida sem casca com carne desfiada, molho branco, requeijão cremoso, mussarela, bacon e cheiro verde.</div>
-                        <div class="product-price">R$ 24,90</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Combos -->
-            <div class="category-section" id="combos">
-                <h2 class="category-title">Combos</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-name">Combo 1</div>
-                        <div class="product-description">2 caldos de feijão completos</div>
-                        <div class="product-price">R$ 37,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Combo 2</div>
-                        <div class="product-description">1 caldo de feijão completo + 1 X-Bacon</div>
-                        <div class="product-price">R$ 38,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Combo 3</div>
-                        <div class="product-description">2 X-Tudo</div>
-                        <div class="product-price">R$ 48,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Combo 4</div>
-                        <div class="product-description">1 X-Tudo + 1 Batata Strogonoff</div>
-                        <div class="product-price">R$ 44,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Combo 5</div>
-                        <div class="product-description">2 Batatas Strogonoff</div>
-                        <div class="product-price">R$ 40,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Combo 6</div>
-                        <div class="product-description">1 caldo completo + 1 Batata Strogonoff</div>
-                        <div class="product-price">R$ 38,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bebidas -->
-            <div class="category-section" id="bebidas">
-                <h2 class="category-title">Refrigerantes</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-name">Caçulinha 200ml</div>
-                        <div class="product-description">Guaraná Antártica 200ml</div>
-                        <div class="product-price">R$ 3,50</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Lata 350ml</div>
-                        <div class="product-description">Coca-Cola, Coca-Cola Zero, Fanta Laranja e Guaraná Antártica</div>
-                        <div class="product-price">R$ 6,50</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">2 Litros</div>
-                        <div class="product-description">Coca-Cola, Fanta Laranja e Guaraná Antártica</div>
-                        <div class="product-price">R$ 15,00</div>
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
-                        </div>
-                        <button class="add-to-cart" onclick="addToCart(this)">Adiciona no carrinho</button>
-                    </div>
-                </div>
-            </div>
+    <!-- PRODUTO 1 - CALDO TRADICIONAL -->
+    <div class="product" data-id="1" data-price="18.90">
+        <div class="product-title">Caldo de Feijão Tradicional</div>
+        <div class="product-description">
+            Caldo de feijão com bacon, calabresa e mussarela.<br>
+            Acompanhamentos: torresmo crocante, torrada sequinha e cheiro verde.
         </div>
+        <div class="product-price">R$ 18,90</div>
+        
+        <div class="quantity-control">
+            <button class="quantity-btn minus">-</button>
+            <div class="quantity-display">1</div>
+            <button class="quantity-btn plus">+</button>
+        </div>
+        
+        <button class="add-to-cart">Adicionar ao Carrinho</button>
     </div>
 
-    <!-- Social Buttons Above Footer -->
-    <div class="social-container">
-        <div class="container">
-            <div class="social-buttons">
-                <a href="https://wa.me/5535999711358" class="social-btn" target="_blank">
-                    💬
-                </a>
-                <a href="https://www.instagram.com/sabordocaldo.passosmg" class="social-btn" target="_blank">
-                    📷
-                </a>
-                <a href="https://www.facebook.com/share/1K7qPvny8k/" class="social-btn" target="_blank">
-                    👥
-                </a>
-            </div>
+    <!-- PRODUTO 2 - CALDO ESPECIAL -->
+    <div class="product" data-id="2" data-price="19.90">
+        <div class="product-title">Caldo de Feijão Especial</div>
+        <div class="product-description">
+            Caldo de feijão com bacon, calabresa, 3 ovos de codorna e mussarela.<br>
+            Acompanhamentos: torresmo crocante, torrada sequinha e cheiro verde.
         </div>
+        <div class="product-price">R$ 19,90</div>
+        
+        <div class="quantity-control">
+            <button class="quantity-btn minus">-</button>
+            <div class="quantity-display">1</div>
+            <button class="quantity-btn plus">+</button>
+        </div>
+        
+        <button class="add-to-cart">Adicionar ao Carrinho</button>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-info">
-                <div class="footer-line">Sabor do Caldo • (35) 99971-1358</div>
-                <div class="footer-line">Quinta a Domingo • 19h às 23h</div>
-                <div class="footer-line">Taxa de entrega: R$ 6,00</div>
-                <div class="footer-line">Passos-MG</div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating Cart Button -->
-    <div class="floating-cart" id="floatingCart">
-        🛒
-        <div class="cart-count" id="cartCount">0</div>
+    <!-- BOTÕES INFERIORES SIMPLES -->
+    <div class="floating-buttons">
+        <button class="cart-button" onclick="openCart()">
+            Ver Carrinho (<span id="cart-count">0</span>)
+        </button>
+        <button class="checkout-button" onclick="finalizarPedido()">
+            Finalizar Pedido - R$ <span id="checkout-total">0,00</span>
+        </button>
     </div>
 
-    <!-- Overlay -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Carrinho Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <div class="cart-title">Meu Pedido</div>
-            <button class="close-cart" id="closeCart">×</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Itens do carrinho serão adicionados aqui -->
-        </div>
-        <div class="cart-total">
-            <div class="total-line">
-                <span>Subtotal:</span>
-                <span id="subtotal">R$ 0,00</span>
-            </div>
-            <div class="total-line">
-                <span>Taxa de entrega:</span>
-                <span>R$ 6,00</span>
-            </div>
-            <div class="total-line final-total">
-                <span>Total:</span>
-                <span id="total">R$ 6,00</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn">Finalizar Pedido</button>
-        </div>
-    </div>
-
-    <!-- Customer Data Modal -->
-    <div class="customer-modal" id="customerModal">
-        <h3 class="customer-title">Seus Dados</h3>
-        
-        <div class="form-group">
-            <label class="form-label" for="customerName">Nome *</label>
-            <input type="text" class="form-input" id="customerName" placeholder="Digite seu nome completo">
-            <div class="error-message" id="nameError">Por favor, digite seu nome</div>
-        </div>
-        
-        <div class="form-group">
-            <label class="form-label" for="customerPhone">Telefone *</label>
-            <input type="tel" class="form-input" id="customerPhone" placeholder="(35) 99999-9999">
-            <div class="error-message" id="phoneError">Por favor, digite um telefone válido</div>
-        </div>
-        
-        <div class="form-group">
-            <label class="form-label" for="customerAddress">Endereço *</label>
-            <input type="text" class="form-input" id="customerAddress" placeholder="Rua, número, bairro, complemento">
-            <div class="error-message" id="addressError">Por favor, digite seu endereço completo</div>
-        </div>
-        
-        <button class="confirm-customer" id="confirmCustomer">Continuar para Pagamento</button>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <h3 class="payment-title">Forma de Pagamento</h3>
-        
-        <div class="payment-option" data-payment="dinheiro">
-            <input type="radio" name="payment" id="dinheiro">
-            <label for="dinheiro">Dinheiro</label>
-        </div>
-        
-        <div class="payment-option" data-payment="pix">
-            <input type="radio" name="payment" id="pix">
-            <label for="pix">PIX</label>
-        </div>
-        
-        <div class="payment-option" data-payment="cartao">
-            <input type="radio" name="payment" id="cartao">
-            <label for="cartao">Cartão</label>
-        </div>
-        
-        <input type="text" class="troco-input" id="trocoInput" placeholder="Troco para quanto? Ex: 50,00">
-        
-        <button class="confirm-payment" id="confirmPayment">Confirmar Pedido</button>
+    <!-- RODAPÉ SIMPLES -->
+    <div class="footer">
+        <div><strong>Sabor do Caldo</strong> • (35) 99971-1358</div>
+        <div>Quinta a Domingo • 19h às 23h</div>
+        <div>Taxa de entrega: R$ 6,00</div>
+        <div>Passos-MG</div>
     </div>
 
     <script>
-        // Variáveis globais
+        // CARRINHO SIMPLES
         let cart = [];
-        let orderNumber = 1;
-        let selectedPayment = '';
-        let customerData = {
-            name: '',
-            phone: '',
-            address: ''
-        };
+        const taxaEntrega = 6.00;
 
-        // Elementos DOM
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const categorySections = document.querySelectorAll('.category-section');
-        const floatingCart = document.getElementById('floatingCart');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const overlay = document.getElementById('overlay');
-        const closeCart = document.getElementById('closeCart');
-        const cartItems = document.getElementById('cartItems');
-        const cartCount = document.getElementById('cartCount');
-        const subtotalEl = document.getElementById('subtotal');
-        const totalEl = document.getElementById('total');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-        const customerModal = document.getElementById('customerModal');
-        const customerName = document.getElementById('customerName');
-        const customerPhone = document.getElementById('customerPhone');
-        const customerAddress = document.getElementById('customerAddress');
-        const confirmCustomer = document.getElementById('confirmCustomer');
-        const paymentModal = document.getElementById('paymentModal');
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const trocoInput = document.getElementById('trocoInput');
-        const confirmPayment = document.getElementById('confirmPayment');
-
-        // Navegação entre categorias
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const category = btn.getAttribute('data-category');
-                
-                // Atualizar botões ativos
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // Mostrar categoria selecionada
-                categorySections.forEach(section => {
-                    section.classList.remove('active');
-                    if (section.id === category) {
-                        section.classList.add('active');
-                    }
-                });
+        // CONTROLE DE QUANTIDADE
+        document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const display = this.parentElement.querySelector('.quantity-display');
+                display.textContent = parseInt(display.textContent) + 1;
             });
         });
 
-        // Funções de quantidade
-        function increaseQuantity(button) {
-            const quantityDisplay = button.parentElement.querySelector('.quantity-display');
-            let quantity = parseInt(quantityDisplay.textContent);
-            quantityDisplay.textContent = quantity + 1;
-        }
-
-        function decreaseQuantity(button) {
-            const quantityDisplay = button.parentElement.querySelector('.quantity-display');
-            let quantity = parseInt(quantityDisplay.textContent);
-            if (quantity > 1) {
-                quantityDisplay.textContent = quantity - 1;
-            }
-        }
-
-        // Adicionar ao carrinho - CORRIGIDO: não abre mais automaticamente
-        function addToCart(button) {
-            const productCard = button.parentElement;
-            const productName = productCard.querySelector('.product-name').textContent;
-            const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('R$ ', '').replace(',', '.'));
-            const quantity = parseInt(productCard.querySelector('.quantity-display').textContent);
-            
-            const existingItem = cart.find(item => item.product === productName);
-            
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({
-                    product: productName,
-                    price: productPrice,
-                    quantity: quantity
-                });
-            }
-            
-            // Resetar quantidade para 1
-            productCard.querySelector('.quantity-display').textContent = '1';
-            
-            updateCart();
-            showNotification(`${quantity}x ${productName} adicionado ao carrinho!`);
-        }
-
-        function updateCart() {
-            // Atualizar contador
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
-            
-            // Atualizar lista de itens
-            cartItems.innerHTML = '';
-            cart.forEach((item, index) => {
-                const itemEl = document.createElement('div');
-                itemEl.className = 'cart-item';
-                itemEl.innerHTML = `
-                    <div class="item-info">
-                        <div class="item-name">${item.product}</div>
-                        <div class="item-price">R$ ${(item.price * item.quantity).toFixed(2)}</div>
-                    </div>
-                    <div class="item-quantity">
-                        <button class="quantity-btn-small" onclick="decreaseCartQuantity(${index})">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn-small" onclick="increaseCartQuantity(${index})">+</button>
-                    </div>
-                `;
-                cartItems.appendChild(itemEl);
-            });
-            
-            // Atualizar totais
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + 6.00; // Taxa de entrega
-            
-            subtotalEl.textContent = `R$ ${subtotal.toFixed(2)}`;
-            totalEl.textContent = `R$ ${total.toFixed(2)}`;
-        }
-
-        function increaseCartQuantity(index) {
-            cart[index].quantity += 1;
-            updateCart();
-        }
-
-        function decreaseCartQuantity(index) {
-            if (cart[index].quantity > 1) {
-                cart[index].quantity -= 1;
-            } else {
-                cart.splice(index, 1);
-            }
-            updateCart();
-        }
-
-        // Abrir/fechar carrinho
-        floatingCart.addEventListener('click', openCart);
-        closeCart.addEventListener('click', closeCartFunc);
-        overlay.addEventListener('click', closeCartFunc);
-
-        function openCart() {
-            cartSidebar.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeCartFunc() {
-            cartSidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Finalizar pedido - Agora abre modal de dados do cliente
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                showNotification('Adicione itens ao carrinho primeiro!');
-                return;
-            }
-            
-            // Resetar formulário
-            customerName.value = '';
-            customerPhone.value = '';
-            customerAddress.value = '';
-            hideErrors();
-            
-            // Abrir modal de dados do cliente
-            customerModal.classList.add('active');
-            overlay.classList.add('active');
-        });
-
-        // Validar dados do cliente
-        confirmCustomer.addEventListener('click', () => {
-            const name = customerName.value.trim();
-            const phone = customerPhone.value.trim();
-            const address = customerAddress.value.trim();
-            
-            let isValid = true;
-            
-            // Validar nome
-            if (name === '') {
-                showError('nameError', 'Por favor, digite seu nome');
-                isValid = false;
-            } else {
-                hideError('nameError');
-            }
-            
-            // Validar telefone
-            if (phone === '') {
-                showError('phoneError', 'Por favor, digite seu telefone');
-                isValid = false;
-            } else if (!isValidPhone(phone)) {
-                showError('phoneError', 'Digite um telefone válido');
-                isValid = false;
-            } else {
-                hideError('phoneError');
-            }
-            
-            // Validar endereço
-            if (address === '') {
-                showError('addressError', 'Por favor, digite seu endereço');
-                isValid = false;
-            } else {
-                hideError('addressError');
-            }
-            
-            if (isValid) {
-                // Salvar dados do cliente
-                customerData = {
-                    name: name,
-                    phone: phone,
-                    address: address
-                };
-                
-                // Fechar modal de cliente e abrir modal de pagamento
-                customerModal.classList.remove('active');
-                paymentModal.classList.add('active');
-            }
-        });
-
-        function isValidPhone(phone) {
-            // Validação simples de telefone brasileiro
-            const phoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
-            return phoneRegex.test(phone);
-        }
-
-        function showError(errorId, message) {
-            const errorElement = document.getElementById(errorId);
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-            document.getElementById(errorId.replace('Error', '')).classList.add('error');
-        }
-
-        function hideError(errorId) {
-            const errorElement = document.getElementById(errorId);
-            errorElement.style.display = 'none';
-            document.getElementById(errorId.replace('Error', '')).classList.remove('error');
-        }
-
-        function hideErrors() {
-            hideError('nameError');
-            hideError('phoneError');
-            hideError('addressError');
-        }
-
-        // Seleção de forma de pagamento
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                selectedPayment = option.getAttribute('data-payment');
-                
-                if (selectedPayment === 'dinheiro') {
-                    trocoInput.style.display = 'block';
-                } else {
-                    trocoInput.style.display = 'none';
+        document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const display = this.parentElement.querySelector('.quantity-display');
+                if (parseInt(display.textContent) > 1) {
+                    display.textContent = parseInt(display.textContent) - 1;
                 }
             });
         });
 
-        // Confirmar pedido
-        confirmPayment.addEventListener('click', () => {
-            if (!selectedPayment) {
-                showNotification('Selecione uma forma de pagamento!');
-                return;
-            }
+        // ADICIONAR AO CARRINHO
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const product = this.closest('.product');
+                const productId = product.dataset.id;
+                const productName = product.querySelector('.product-title').textContent;
+                const productPrice = parseFloat(product.dataset.price);
+                const quantity = parseInt(product.querySelector('.quantity-display').textContent);
 
-            if (selectedPayment === 'dinheiro' && !trocoInput.value) {
-                showNotification('Informe para quanto precisa de troco!');
-                return;
-            }
+                // Adiciona ou atualiza no carrinho
+                const existingIndex = cart.findIndex(item => item.id === productId);
+                if (existingIndex > -1) {
+                    cart[existingIndex].quantity += quantity;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: quantity
+                    });
+                }
 
-            sendOrderToWhatsApp();
+                updateCart();
+                alert('Adicionado ao carrinho!');
+            });
         });
 
-        function sendOrderToWhatsApp() {
+        // ATUALIZAR CARRINHO
+        function updateCart() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + 6.00;
-            const now = new Date();
-            const dateStr = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()} - ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            const total = subtotal + taxaEntrega;
+            document.getElementById('checkout-total').textContent = total.toFixed(2).replace('.', ',');
+        }
 
-            let message = `PEDIDO #${orderNumber.toString().padStart(3, '0')} - SABOR DO CALDO\n\n`;
-            message += `NOME: ${customerData.name}\n`;
-            message += `TELEFONE: ${customerData.phone}\n`;
-            message += `ENDEREÇO: ${customerData.address}\n\n`;
-
+        // FUNÇÃO SIMPLES DO CARRINHO
+        function openCart() {
+            if (cart.length === 0) {
+                alert('Carrinho vazio!');
+                return;
+            }
+            
+            let mensagem = 'Itens no carrinho:\n\n';
             cart.forEach(item => {
-                message += `• ${item.quantity}X ${item.product} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+                mensagem += `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
             });
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + taxaEntrega;
+            
+            mensagem += `\nSubtotal: R$ ${subtotal.toFixed(2)}`;
+            mensagem += `\nTaxa de entrega: R$ ${taxaEntrega.toFixed(2)}`;
+            mensagem += `\nTotal: R$ ${total.toFixed(2)}`;
+            
+            alert(mensagem);
+        }
 
-            message += `\nSUBTOTAL: R$ ${subtotal.toFixed(2)}\n`;
-            message += `TAXA DE ENTREGA: R$ 6,00\n`;
-            message += `TOTAL: R$ ${total.toFixed(2)}\n\n`;
-
-            // Forma de pagamento específica
-            if (selectedPayment === 'dinheiro') {
-                message += `FORMA DE PAGAMENTO: DINHEIRO\n`;
-                message += `TROCO PARA: R$ ${trocoInput.value}\n\n`;
-            } else if (selectedPayment === 'pix') {
-                message += `FORMA DE PAGAMENTO: PIX\n\n`;
-            } else if (selectedPayment === 'cartao') {
-                message += `FORMA DE PAGAMENTO: CARTÃO\n\n`;
+        // FINALIZAR PEDIDO
+        function finalizarPedido() {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
             }
 
-            message += `DATA: ${dateStr}`;
-
-            const whatsappUrl = `https://wa.me/5535999711358?text=${encodeURIComponent(message)}`;
+            const phone = '5535999711358';
+            let message = '🍲 PEDIDO - SABOR DO CALDO 🍲\n\n';
             
-            // Limpar tudo
-            cart = [];
-            orderNumber++;
-            customerData = { name: '', phone: '', address: '' };
-            updateCart();
-            closeCartFunc();
-            paymentModal.classList.remove('active');
-            overlay.classList.remove('active');
+            cart.forEach(item => {
+                message += `${item.name}\n`;
+                message += `Quantidade: ${item.quantity}\n`;
+                message += `R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
+            });
             
-            // Resetar seleção de pagamento
-            paymentOptions.forEach(opt => opt.classList.remove('selected'));
-            selectedPayment = '';
-            trocoInput.style.display = 'none';
-            trocoInput.value = '';
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + taxaEntrega;
             
-            // Abrir WhatsApp
-            window.open(whatsappUrl, '_blank');
+            message += `Taxa de entrega: R$ 6,00\n`;
+            message += `TOTAL: R$ ${total.toFixed(2)}\n\n`;
+            message += `Endereço de entrega:\n`;
+            message += `[Informe seu endereço completo]`;
             
-            showNotification('Pedido enviado para o WhatsApp!');
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
         }
 
-        function showNotification(message) {
-            // Criar notificação
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #27AE60;
-                color: white;
-                padding: 15px 20px;
-                border-radius: 5px;
-                z-index: 10000;
-                font-weight: bold;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            // Remover após 3 segundos
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Tornar funções globais
-        window.increaseCartQuantity = increaseCartQuantity;
-        window.decreaseCartQuantity = decreaseCartQuantity;
+        // INICIALIZAR
+        updateCart();
     </script>
 </body>
 </html>
