@@ -101,6 +101,65 @@
             font-size: 14px;
             cursor: pointer;
         }
+
+        /* MODAL FORMULÁRIO */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-title {
+            color: #8B4513;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #228B22;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
         
         .floating-buttons {
             position: fixed;
@@ -184,17 +243,42 @@
         <button class="add-to-cart">Adicionar ao Carrinho</button>
     </div>
 
-    <!-- BOTÕES INFERIORES SIMPLES -->
+    <!-- MODAL FORMULÁRIO -->
+    <div class="modal" id="customerModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Seus Dados para Entrega</h2>
+            
+            <div class="form-group">
+                <label class="form-label" for="customerName">Nome Completo *</label>
+                <input type="text" class="form-input" id="customerName" placeholder="Digite seu nome completo" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="customerPhone">Telefone *</label>
+                <input type="tel" class="form-input" id="customerPhone" placeholder="(35) 99999-9999" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="customerAddress">Endereço Completo *</label>
+                <input type="text" class="form-input" id="customerAddress" placeholder="Rua, número, bairro, complemento" required>
+            </div>
+            
+            <button class="submit-btn" onclick="enviarPedidoWhatsApp()">Enviar Pedido via WhatsApp</button>
+            <button class="cart-button" onclick="fecharModal()" style="margin-top: 10px; background: #666;">Voltar</button>
+        </div>
+    </div>
+
+    <!-- BOTÕES INFERIORES -->
     <div class="floating-buttons">
         <button class="cart-button" onclick="openCart()">
             Ver Carrinho (<span id="cart-count">0</span>)
         </button>
-        <button class="checkout-button" onclick="finalizarPedido()">
+        <button class="checkout-button" onclick="abrirFormulario()">
             Finalizar Pedido - R$ <span id="checkout-total">0,00</span>
         </button>
     </div>
 
-    <!-- RODAPÉ SIMPLES -->
+    <!-- RODAPÉ -->
     <div class="footer">
         <div><strong>Sabor do Caldo</strong> • (35) 99971-1358</div>
         <div>Quinta a Domingo • 19h às 23h</div>
@@ -203,9 +287,10 @@
     </div>
 
     <script>
-        // CARRINHO SIMPLES
+        // VARIÁVEIS GLOBAIS
         let cart = [];
         const taxaEntrega = 6.00;
+        let numeroPedido = 1;
 
         // CONTROLE DE QUANTIDADE
         document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
@@ -247,7 +332,7 @@
                 }
 
                 updateCart();
-                alert('Adicionado ao carrinho!');
+                mostrarNotificacao('✅ Item adicionado ao carrinho!');
             });
         });
 
@@ -261,54 +346,136 @@
             document.getElementById('checkout-total').textContent = total.toFixed(2).replace('.', ',');
         }
 
-        // FUNÇÃO SIMPLES DO CARRINHO
+        // FUNÇÃO DO CARRINHO
         function openCart() {
             if (cart.length === 0) {
-                alert('Carrinho vazio!');
+                mostrarNotificacao('🛒 Carrinho vazio!');
                 return;
             }
             
-            let mensagem = 'Itens no carrinho:\n\n';
+            let mensagem = '🛒 **ITENS NO CARRINHO**\n\n';
             cart.forEach(item => {
-                mensagem += `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+                mensagem += `• ${item.quantity}x ${item.name}\n`;
+                mensagem += `  R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
             });
             
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const total = subtotal + taxaEntrega;
             
-            mensagem += `\nSubtotal: R$ ${subtotal.toFixed(2)}`;
-            mensagem += `\nTaxa de entrega: R$ ${taxaEntrega.toFixed(2)}`;
-            mensagem += `\nTotal: R$ ${total.toFixed(2)}`;
+            mensagem += `📦 Subtotal: R$ ${subtotal.toFixed(2)}\n`;
+            mensagem += `🚗 Taxa de entrega: R$ ${taxaEntrega.toFixed(2)}\n`;
+            mensagem += `💰 TOTAL: R$ ${total.toFixed(2)}`;
             
             alert(mensagem);
         }
 
-        // FINALIZAR PEDIDO
-        function finalizarPedido() {
+        // ABRIR FORMULÁRIO
+        function abrirFormulario() {
             if (cart.length === 0) {
-                alert('Seu carrinho está vazio!');
+                mostrarNotificacao('❌ Adicione itens ao carrinho primeiro!');
                 return;
             }
 
-            const phone = '5535999711358';
-            let message = '🍲 PEDIDO - SABOR DO CALDO 🍲\n\n';
+            document.getElementById('customerModal').style.display = 'block';
+        }
+
+        // FECHAR MODAL
+        function fecharModal() {
+            document.getElementById('customerModal').style.display = 'none';
+        }
+
+        // ENVIAR PEDIDO VIA WHATSAPP
+        function enviarPedidoWhatsApp() {
+            const nome = document.getElementById('customerName').value.trim();
+            const telefone = document.getElementById('customerPhone').value.trim();
+            const endereco = document.getElementById('customerAddress').value.trim();
+
+            // VALIDAÇÃO
+            if (!nome || !telefone || !endereco) {
+                mostrarNotificacao('❌ Preencha todos os dados!');
+                return;
+            }
+
+            // DATA E HORA ATUAL
+            const agora = new Date();
+            const data = `${agora.getDate().toString().padStart(2, '0')}/${(agora.getMonth() + 1).toString().padStart(2, '0')}/${agora.getFullYear().toString().slice(2)}`;
+            const hora = `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`;
+
+            // MONTAR MENSAGEM DA COMANDA
+            let message = '';
+            
+            // CABEÇALHO
+            message += `*🍲 SABOR DO CALDO - PEDIDO #${numeroPedido.toString().padStart(3, '0')}* 🍲\n\n`;
+            
+            // DADOS DO CLIENTE
+            message += `*👤 DADOS DO CLIENTE:*\n`;
+            message += `Nome: ${nome}\n`;
+            message += `Telefone: ${telefone}\n`;
+            message += `Endereço: ${endereco}\n\n`;
+            
+            // ITENS DO PEDIDO
+            message += `*🛒 ITENS DO PEDIDO:*\n`;
+            message += '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\n';
             
             cart.forEach(item => {
-                message += `${item.name}\n`;
-                message += `Quantidade: ${item.quantity}\n`;
-                message += `R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
+                message += `• ${item.quantity}x ${item.name}\n`;
+                message += `  R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
             });
             
+            // RESUMO DE VALORES
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const total = subtotal + taxaEntrega;
             
-            message += `Taxa de entrega: R$ 6,00\n`;
-            message += `TOTAL: R$ ${total.toFixed(2)}\n\n`;
-            message += `Endereço de entrega:\n`;
-            message += `[Informe seu endereço completo]`;
+            message += `*💰 RESUMO DO VALOR:*\n`;
+            message += '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\n';
+            message += `Subtotal: R$ ${subtotal.toFixed(2)}\n`;
+            message += `Taxa de entrega: R$ ${taxaEntrega.toFixed(2)}\n`;
+            message += `*TOTAL: R$ ${total.toFixed(2)}*\n\n`;
             
+            // RODAPÉ
+            message += `*📅 Data: ${data} - Hora: ${hora}*\n`;
+            message += `📍 Passos-MG\n`;
+            message += `📞 (35) 99971-1358`;
+
+            const phone = '5535999711358';
             const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+            const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
+
+            // LIMPAR CARRINHO E INCREMENTAR NÚMERO DO PEDIDO
+            cart = [];
+            numeroPedido++;
+            updateCart();
+            fecharModal();
+            
+            // ABRIR WHATSAPP
+            window.open(whatsappURL, '_blank');
+            mostrarNotificacao('✅ Pedido enviado para o WhatsApp!');
+        }
+
+        // FUNÇÃO DE NOTIFICAÇÃO
+        function mostrarNotificacao(mensagem) {
+            // Criar elemento de notificação
+            const notificacao = document.createElement('div');
+            notificacao.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #333;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-weight: bold;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            `;
+            notificacao.textContent = mensagem;
+            document.body.appendChild(notificacao);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                notificacao.remove();
+            }, 3000);
         }
 
         // INICIALIZAR
