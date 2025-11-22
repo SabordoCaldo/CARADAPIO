@@ -335,6 +335,87 @@
             display: block;
         }
 
+        /* Customer Data Modal */
+        .customer-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 1002;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .customer-modal.active {
+            display: block;
+        }
+
+        .customer-title {
+            color: #D32F2F;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D32F2F;
+        }
+
+        .form-input.error {
+            border-color: #ff4444;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .confirm-customer {
+            background: #D32F2F;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+
+        .confirm-customer:hover {
+            background: #B71C1C;
+        }
+
         /* Footer */
         .footer {
             background: #D32F2F;
@@ -528,6 +609,10 @@
                 width: 55px;
                 height: 55px;
             }
+            
+            .customer-modal {
+                padding: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -584,6 +669,7 @@
             <div class="category-section active" id="caldos">
                 <h2 class="category-title">Caldo de Feijão - Pote 500G</h2>
                 <div class="product-grid">
+                    <!-- Produtos mantidos iguais -->
                     <div class="product-card">
                         <div class="product-name">Tradicional</div>
                         <div class="product-description">Caldo de feijão, acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
@@ -642,6 +728,7 @@
                 </div>
             </div>
 
+            <!-- Demais categorias mantidas iguais -->
             <!-- Lanches Artesanais -->
             <div class="category-section" id="lanches">
                 <h2 class="category-title">Lanches Artesanais</h2>
@@ -956,6 +1043,31 @@
         </div>
     </div>
 
+    <!-- Customer Data Modal -->
+    <div class="customer-modal" id="customerModal">
+        <h3 class="customer-title">Seus Dados</h3>
+        
+        <div class="form-group">
+            <label class="form-label" for="customerName">Nome *</label>
+            <input type="text" class="form-input" id="customerName" placeholder="Digite seu nome completo">
+            <div class="error-message" id="nameError">Por favor, digite seu nome</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label" for="customerPhone">Telefone *</label>
+            <input type="tel" class="form-input" id="customerPhone" placeholder="(35) 99999-9999">
+            <div class="error-message" id="phoneError">Por favor, digite um telefone válido</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label" for="customerAddress">Endereço *</label>
+            <input type="text" class="form-input" id="customerAddress" placeholder="Rua, número, bairro, complemento">
+            <div class="error-message" id="addressError">Por favor, digite seu endereço completo</div>
+        </div>
+        
+        <button class="confirm-customer" id="confirmCustomer">Continuar para Pagamento</button>
+    </div>
+
     <!-- Payment Modal -->
     <div class="payment-modal" id="paymentModal">
         <h3 class="payment-title">Forma de Pagamento</h3>
@@ -985,6 +1097,11 @@
         let cart = [];
         let orderNumber = 1;
         let selectedPayment = '';
+        let customerData = {
+            name: '',
+            phone: '',
+            address: ''
+        };
 
         // Elementos DOM
         const categoryBtns = document.querySelectorAll('.category-btn');
@@ -998,6 +1115,11 @@
         const subtotalEl = document.getElementById('subtotal');
         const totalEl = document.getElementById('total');
         const checkoutBtn = document.getElementById('checkoutBtn');
+        const customerModal = document.getElementById('customerModal');
+        const customerName = document.getElementById('customerName');
+        const customerPhone = document.getElementById('customerPhone');
+        const customerAddress = document.getElementById('customerAddress');
+        const confirmCustomer = document.getElementById('confirmCustomer');
         const paymentModal = document.getElementById('paymentModal');
         const paymentOptions = document.querySelectorAll('.payment-option');
         const trocoInput = document.getElementById('trocoInput');
@@ -1060,7 +1182,6 @@
             productCard.querySelector('.quantity-display').textContent = '1';
             
             updateCart();
-            // REMOVIDO: openCart(); - Não abre mais o carrinho automaticamente
             showNotification(`${quantity}x ${productName} adicionado ao carrinho!`);
         }
 
@@ -1127,15 +1248,97 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Finalizar pedido
+        // Finalizar pedido - Agora abre modal de dados do cliente
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 showNotification('Adicione itens ao carrinho primeiro!');
                 return;
             }
-            paymentModal.classList.add('active');
+            
+            // Resetar formulário
+            customerName.value = '';
+            customerPhone.value = '';
+            customerAddress.value = '';
+            hideErrors();
+            
+            // Abrir modal de dados do cliente
+            customerModal.classList.add('active');
             overlay.classList.add('active');
         });
+
+        // Validar dados do cliente
+        confirmCustomer.addEventListener('click', () => {
+            const name = customerName.value.trim();
+            const phone = customerPhone.value.trim();
+            const address = customerAddress.value.trim();
+            
+            let isValid = true;
+            
+            // Validar nome
+            if (name === '') {
+                showError('nameError', 'Por favor, digite seu nome');
+                isValid = false;
+            } else {
+                hideError('nameError');
+            }
+            
+            // Validar telefone
+            if (phone === '') {
+                showError('phoneError', 'Por favor, digite seu telefone');
+                isValid = false;
+            } else if (!isValidPhone(phone)) {
+                showError('phoneError', 'Digite um telefone válido');
+                isValid = false;
+            } else {
+                hideError('phoneError');
+            }
+            
+            // Validar endereço
+            if (address === '') {
+                showError('addressError', 'Por favor, digite seu endereço');
+                isValid = false;
+            } else {
+                hideError('addressError');
+            }
+            
+            if (isValid) {
+                // Salvar dados do cliente
+                customerData = {
+                    name: name,
+                    phone: phone,
+                    address: address
+                };
+                
+                // Fechar modal de cliente e abrir modal de pagamento
+                customerModal.classList.remove('active');
+                paymentModal.classList.add('active');
+            }
+        });
+
+        function isValidPhone(phone) {
+            // Validação simples de telefone brasileiro
+            const phoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function showError(errorId, message) {
+            const errorElement = document.getElementById(errorId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            document.getElementById(errorId.replace('Error', '')).classList.add('error');
+        }
+
+        function hideError(errorId) {
+            const errorElement = document.getElementById(errorId);
+            errorElement.style.display = 'none';
+            document.getElementById(errorId.replace('Error', '')).classList.remove('error');
+        }
+
+        function hideErrors() {
+            hideError('nameError');
+            hideError('phoneError');
+            hideError('addressError');
+        }
 
         // Seleção de forma de pagamento
         paymentOptions.forEach(option => {
@@ -1174,9 +1377,9 @@
             const dateStr = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()} - ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
 
             let message = `PEDIDO #${orderNumber.toString().padStart(3, '0')} - SABOR DO CALDO\n\n`;
-            message += `NOME: [Cliente digita aqui]\n`;
-            message += `TELEFONE: [Cliente digita aqui]\n`;
-            message += `ENDEREÇO: [Cliente digita aqui]\n\n`;
+            message += `NOME: ${customerData.name}\n`;
+            message += `TELEFONE: ${customerData.phone}\n`;
+            message += `ENDEREÇO: ${customerData.address}\n\n`;
 
             cart.forEach(item => {
                 message += `• ${item.quantity}X ${item.product} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
@@ -1200,9 +1403,10 @@
 
             const whatsappUrl = `https://wa.me/5535999711358?text=${encodeURIComponent(message)}`;
             
-            // Limpar carrinho e fechar modais
+            // Limpar tudo
             cart = [];
             orderNumber++;
+            customerData = { name: '', phone: '', address: '' };
             updateCart();
             closeCartFunc();
             paymentModal.classList.remove('active');
