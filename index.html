@@ -19,6 +19,7 @@
             max-width: 500px;
             margin: 0 auto;
             padding: 10px;
+            overflow-x: hidden;
         }
         
         .header {
@@ -38,6 +39,40 @@
             color: #666;
             font-size: 14px;
         }
+
+        /* CATEGORIAS */
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 0;
+            background: #F5F5F5;
+            gap: 10px;
+            margin-bottom: 20px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #D32F2F;
+            border-radius: 25px;
+            color: #D32F2F;
+            font-weight: bold;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .category-btn.active {
+            background: #D32F2F;
+            color: white;
+        }
         
         .product {
             background: #f9f9f9;
@@ -45,6 +80,11 @@
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
+            display: none;
+        }
+
+        .product.active {
+            display: block;
         }
         
         .product-title {
@@ -58,6 +98,7 @@
             color: #666;
             font-size: 14px;
             margin-bottom: 10px;
+            line-height: 1.4;
         }
         
         .product-price {
@@ -100,6 +141,11 @@
             padding: 10px;
             font-size: 14px;
             cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: #B71C1C;
         }
 
         /* MODAL FORMULÁRIO */
@@ -195,6 +241,11 @@
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1B5E20;
         }
         
         .floating-buttons {
@@ -205,6 +256,7 @@
             background: white;
             border-top: 1px solid #ddd;
             padding: 10px;
+            z-index: 100;
         }
         
         .cart-button, .checkout-button {
@@ -217,10 +269,19 @@
             margin-bottom: 5px;
             font-size: 14px;
             cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cart-button:hover, .checkout-button:hover {
+            background: #B71C1C;
         }
         
         .checkout-button {
             background: #228B22;
+        }
+
+        .checkout-button:hover {
+            background: #1B5E20;
         }
         
         .footer {
@@ -250,49 +311,380 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             display: none;
         }
+
+        .category-title {
+            color: #D32F2F;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            border-bottom: 2px solid #D32F2F;
+            padding-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <!-- CABEÇALHO SIMPLES -->
+    <!-- CABEÇALHO -->
     <div class="header">
         <h1>Sabor do Caldo - Cardápio Digital</h1>
         <div class="url">sabordocaldo.github.io</div>
     </div>
 
-    <!-- PRODUTO 1 - CALDO TRADICIONAL -->
-    <div class="product" data-id="1" data-price="18.90">
-        <div class="product-title">Caldo de Feijão Tradicional</div>
-        <div class="product-description">
-            Caldo de feijão com bacon, calabresa e mussarela.<br>
-            Acompanhamentos: torresmo crocante, torrada sequinha e cheiro verde.
-        </div>
-        <div class="product-price">R$ 18,90</div>
-        
-        <div class="quantity-control">
-            <button class="quantity-btn minus">-</button>
-            <div class="quantity-display">1</div>
-            <button class="quantity-btn plus">+</button>
-        </div>
-        
-        <button class="add-to-cart">Adicionar ao Carrinho</button>
+    <!-- CATEGORIAS -->
+    <div class="categories">
+        <button class="category-btn active" onclick="showCategory('caldos')">🍲 Caldos</button>
+        <button class="category-btn" onclick="showCategory('lanches')">🍔 Lanches</button>
+        <button class="category-btn" onclick="showCategory('batatas')">🥔 Batatas</button>
+        <button class="category-btn" onclick="showCategory('combos')">📦 Combos</button>
+        <button class="category-btn" onclick="showCategory('bebidas')">🥤 Bebidas</button>
     </div>
 
-    <!-- PRODUTO 2 - CALDO ESPECIAL -->
-    <div class="product" data-id="2" data-price="19.90">
-        <div class="product-title">Caldo de Feijão Especial</div>
-        <div class="product-description">
-            Caldo de feijão com bacon, calabresa, 3 ovos de codorna e mussarela.<br>
-            Acompanhamentos: torresmo crocante, torrada sequinha e cheiro verde.
-        </div>
-        <div class="product-price">R$ 19,90</div>
+    <!-- CALDOS DE FEIJÃO -->
+    <div id="caldos" class="category-products">
+        <h2 class="category-title">🍲 Caldos de Feijão - Pote 500G</h2>
         
-        <div class="quantity-control">
-            <button class="quantity-btn minus">-</button>
-            <div class="quantity-display">1</div>
-            <button class="quantity-btn plus">+</button>
+        <div class="product active" data-id="1" data-price="14.90">
+            <div class="product-title">Tradicional</div>
+            <div class="product-description">Caldo de feijão, acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
+            <div class="product-price">R$ 14,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
         </div>
+
+        <div class="product active" data-id="2" data-price="16.90">
+            <div class="product-title">Bacon e Calabresa</div>
+            <div class="product-description">Caldo de feijão com bacon e calabresa. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
+            <div class="product-price">R$ 16,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="3" data-price="17.90">
+            <div class="product-title">Bacon, Calabresa e Ovo</div>
+            <div class="product-description">Caldo de feijão com bacon, calabresa e 3 ovos de codorna. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
+            <div class="product-price">R$ 17,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="4" data-price="18.90">
+            <div class="product-title">Bacon, Calabresa e Mussarela</div>
+            <div class="product-description">Caldo de feijão com bacon, calabresa e mussarela. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
+            <div class="product-price">R$ 18,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="5" data-price="19.90">
+            <div class="product-title">Completo</div>
+            <div class="product-description">Caldo de feijão com bacon, calabresa, 3 ovos de codorna e mussarela. Acompanhamentos torresmo crocante, torrada sequinha e cheiro verde.</div>
+            <div class="product-price">R$ 19,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+
+    <!-- LANCHES ARTESANAIS -->
+    <div id="lanches" class="category-products" style="display: none;">
+        <h2 class="category-title">🍔 Lanches Artesanais</h2>
         
-        <button class="add-to-cart">Adicionar ao Carrinho</button>
+        <div class="product active" data-id="6" data-price="17.90">
+            <div class="product-title">X-Burguer</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 17,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="7" data-price="19.90">
+            <div class="product-title">X-Salada</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, salada de batata, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 19,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="8" data-price="19.90">
+            <div class="product-title">X-Egg</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, ovo, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 19,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="9" data-price="21.90">
+            <div class="product-title">X-Bacon</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 21,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="10" data-price="22.90">
+            <div class="product-title">X-Salada Egg</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, ovo, salada de batata, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 22,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="11" data-price="23.90">
+            <div class="product-title">X-Bacon Salada</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, salada de batata, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 23,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="12" data-price="23.90">
+            <div class="product-title">X-Bacon Egg</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, ovo, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 23,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="13" data-price="25.90">
+            <div class="product-title">X-Tudo</div>
+            <div class="product-description">Pão, hambúrguer bovino artesanal, mussarela, presunto, bacon, ovo, salada de batata, batata palha, alface e tomate.</div>
+            <div class="product-price">R$ 25,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+
+    <!-- BATATAS NO POTE -->
+    <div id="batatas" class="category-products" style="display: none;">
+        <h2 class="category-title">🥔 Batatas no Pote - 500G</h2>
+        
+        <div class="product active" data-id="14" data-price="20.90">
+            <div class="product-title">Frango Desfiado com Cheddar</div>
+            <div class="product-description">Batata cozida sem casca com frango desfiado, cheddar cremoso, mussarela, bacon e cheiro verde.</div>
+            <div class="product-price">R$ 20,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="15" data-price="21.90">
+            <div class="product-title">Strogonoff de Frango</div>
+            <div class="product-description">Batata cozida sem casca com recheio de strogonoff de frango, requeijão cremoso, mussarela, bacon e cheiro verde. Acompanha batata palha.</div>
+            <div class="product-price">R$ 21,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="16" data-price="21.90">
+            <div class="product-title">Frango com Creme de Milho</div>
+            <div class="product-description">Batata cozida sem casca com recheio de frango com creme de milho, requeijão cremoso, mussarela, bacon e cheiro verde. Acompanha batata palha.</div>
+            <div class="product-price">R$ 21,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="17" data-price="22.90">
+            <div class="product-title">Bolonhesa</div>
+            <div class="product-description">Batata cozida sem casca com carne moída com molho vermelho, requeijão cremoso, mussarela, bacon e cheiro verde.</div>
+            <div class="product-price">R$ 22,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="18" data-price="24.90">
+            <div class="product-title">Carne Bovina Desfiada</div>
+            <div class="product-description">Batata cozida sem casca com carne desfiada, molho branco, requeijão cremoso, mussarela, bacon e cheiro verde.</div>
+            <div class="product-price">R$ 24,90</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+
+    <!-- COMBOS -->
+    <div id="combos" class="category-products" style="display: none;">
+        <h2 class="category-title">📦 Combos Promocionais</h2>
+        
+        <div class="product active" data-id="19" data-price="37.00">
+            <div class="product-title">Combo 1</div>
+            <div class="product-description">2 caldos de feijão completos</div>
+            <div class="product-price">R$ 37,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="20" data-price="38.00">
+            <div class="product-title">Combo 6</div>
+            <div class="product-description">1 caldo de feijão completo + 1 Batata no pote com Strogonoff de frango</div>
+            <div class="product-price">R$ 38,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="21" data-price="38.00">
+            <div class="product-title">Combo 2</div>
+            <div class="product-description">1 caldo de feijão completo + 1 X-Bacon</div>
+            <div class="product-price">R$ 38,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="22" data-price="40.00">
+            <div class="product-title">Combo 5</div>
+            <div class="product-description">2 Batatas no pote com Strogonoff de frango</div>
+            <div class="product-price">R$ 40,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="23" data-price="44.00">
+            <div class="product-title">Combo 4</div>
+            <div class="product-description">1 X-Tudo + 1 Batata no pote com Strogonoff de frango</div>
+            <div class="product-price">R$ 44,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="24" data-price="48.00">
+            <div class="product-title">Combo 3</div>
+            <div class="product-description">2 X-Tudo</div>
+            <div class="product-price">R$ 48,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+
+    <!-- BEBIDAS -->
+    <div id="bebidas" class="category-products" style="display: none;">
+        <h2 class="category-title">🥤 Bebidas</h2>
+        
+        <div class="product active" data-id="25" data-price="3.50">
+            <div class="product-title">Caçulinha 200ml</div>
+            <div class="product-description">Guaraná Antártica 200ml</div>
+            <div class="product-price">R$ 3,50</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="26" data-price="6.50">
+            <div class="product-title">Lata 350ml</div>
+            <div class="product-description">Coca-Cola, Coca-Cola Zero, Fanta Laranja e Guaraná Antártica</div>
+            <div class="product-price">R$ 6,50</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product active" data-id="27" data-price="15.00">
+            <div class="product-title">2 Litros</div>
+            <div class="product-description">Coca-Cola, Fanta Laranja e Guaraná Antártica</div>
+            <div class="product-price">R$ 15,00</div>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <div class="quantity-display">1</div>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
     </div>
 
     <!-- MODAL FORMULÁRIO -->
@@ -369,6 +761,23 @@
         const taxaEntrega = 6.00;
         let numeroPedido = 1;
         let formaPagamento = '';
+
+        // FUNÇÃO PARA MOSTRAR CATEGORIA
+        function showCategory(categoria) {
+            // Esconder todas as categorias
+            document.querySelectorAll('.category-products').forEach(cat => {
+                cat.style.display = 'none';
+            });
+            
+            // Mostrar categoria selecionada
+            document.getElementById(categoria).style.display = 'block';
+            
+            // Atualizar botões ativos
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
 
         // CONTROLE DE QUANTIDADE
         document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
