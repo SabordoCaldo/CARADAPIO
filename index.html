@@ -16,7 +16,6 @@
             background-color: #FFFFFF;
             color: #212121;
             line-height: 1.6;
-            padding-bottom: 80px;
         }
 
         .container {
@@ -88,6 +87,7 @@
             padding: 20px 0;
             display: grid;
             gap: 20px;
+            min-height: 60vh;
         }
 
         .category-section {
@@ -337,13 +337,11 @@
 
         /* Footer */
         .footer {
-            background: #212121;
+            background: #D32F2F;
             color: white;
-            padding: 25px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            padding: 30px 0;
             text-align: center;
+            margin-top: 40px;
         }
 
         .footer-info {
@@ -356,10 +354,44 @@
             margin-bottom: 5px;
         }
 
+        /* Social Buttons Above Footer */
+        .social-container {
+            background: #B71C1C;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-btn {
+            background: #FFFFFF;
+            color: #D32F2F;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .social-btn:hover {
+            background: #F5F5F5;
+            transform: scale(1.1);
+        }
+
         /* Floating Cart Button */
         .floating-cart {
             position: fixed;
-            bottom: 100px;
+            bottom: 30px;
             right: 20px;
             background: #D32F2F;
             color: white;
@@ -389,37 +421,6 @@
             justify-content: center;
             font-size: 0.8rem;
             font-weight: bold;
-        }
-
-        /* Floating Social Buttons */
-        .floating-social {
-            position: fixed;
-            bottom: 180px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 100;
-        }
-
-        .social-btn-floating {
-            background: #D32F2F;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            text-decoration: none;
-            font-size: 1.3rem;
-            transition: background 0.3s ease;
-        }
-
-        .social-btn-floating:hover {
-            background: #B71C1C;
         }
 
         /* Payment Modal */
@@ -511,14 +512,21 @@
                 font-size: 1.8rem;
             }
             
-            .floating-social {
-                bottom: 170px;
-                right: 15px;
+            .social-buttons {
+                gap: 15px;
+            }
+            
+            .social-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
             }
             
             .floating-cart {
-                bottom: 90px;
+                bottom: 25px;
                 right: 15px;
+                width: 55px;
+                height: 55px;
             }
         }
 
@@ -534,6 +542,16 @@
             
             .footer-info {
                 font-size: 0.8rem;
+            }
+            
+            .social-buttons {
+                gap: 10px;
+            }
+            
+            .social-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -874,18 +892,34 @@
         </div>
     </div>
 
-    <!-- Floating Social Buttons -->
-    <div class="floating-social">
-        <a href="https://wa.me/5535999711358" class="social-btn-floating" target="_blank">
-            💬
-        </a>
-        <a href="https://www.instagram.com/sabordocaldo.passosmg" class="social-btn-floating" target="_blank">
-            📷
-        </a>
-        <a href="https://www.facebook.com/share/1K7qPvny8k/" class="social-btn-floating" target="_blank">
-            👥
-        </a>
+    <!-- Social Buttons Above Footer -->
+    <div class="social-container">
+        <div class="container">
+            <div class="social-buttons">
+                <a href="https://wa.me/5535999711358" class="social-btn" target="_blank">
+                    💬
+                </a>
+                <a href="https://www.instagram.com/sabordocaldo.passosmg" class="social-btn" target="_blank">
+                    📷
+                </a>
+                <a href="https://www.facebook.com/share/1K7qPvny8k/" class="social-btn" target="_blank">
+                    👥
+                </a>
+            </div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-info">
+                <div class="footer-line">Sabor do Caldo • (35) 99971-1358</div>
+                <div class="footer-line">Quinta a Domingo • 19h às 23h</div>
+                <div class="footer-line">Taxa de entrega: R$ 6,00</div>
+                <div class="footer-line">Passos-MG</div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Floating Cart Button -->
     <div class="floating-cart" id="floatingCart">
@@ -946,18 +980,6 @@
         <button class="confirm-payment" id="confirmPayment">Confirmar Pedido</button>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-info">
-                <div class="footer-line">Sabor do Caldo • (35) 99971-1358</div>
-                <div class="footer-line">Quinta a Domingo • 19h às 23h</div>
-                <div class="footer-line">Taxa de entrega: R$ 6,00</div>
-                <div class="footer-line">Passos-MG</div>
-            </div>
-        </div>
-    </footer>
-
     <script>
         // Variáveis globais
         let cart = [];
@@ -1015,30 +1037,30 @@
             }
         }
 
-        // Adicionar ao carrinho
+        // Adicionar ao carrinho - CORRIGIDO: não abre mais automaticamente
         function addToCart(button) {
-    const productCard = button.parentElement;
-    const productName = productCard.querySelector('.product-name').textContent;
-    const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('R$ ', '').replace(',', '.'));
-    const quantity = parseInt(productCard.querySelector('.quantity-display').textContent);
-    
-    const existingItem = cart.find(item => item.product === productName);
-    
-    if (existingItem) {
-        existingItem.quantity += quantity;
-    } else {
-        cart.push({
-            product: productName,
-            price: productPrice,
-            quantity: quantity
-        });
-    }
+            const productCard = button.parentElement;
+            const productName = productCard.querySelector('.product-name').textContent;
+            const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('R$ ', '').replace(',', '.'));
+            const quantity = parseInt(productCard.querySelector('.quantity-display').textContent);
+            
+            const existingItem = cart.find(item => item.product === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    product: productName,
+                    price: productPrice,
+                    quantity: quantity
+                });
+            }
             
             // Resetar quantidade para 1
             productCard.querySelector('.quantity-display').textContent = '1';
             
             updateCart();
-            openCart();
+            // REMOVIDO: openCart(); - Não abre mais o carrinho automaticamente
             showNotification(`${quantity}x ${productName} adicionado ao carrinho!`);
         }
 
